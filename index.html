@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Guru & Epsiba | Wedding & Reception Invite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <!-- Lightweight Canvas Confetti for Petal Shower -->
+  <!-- Lightweight Confetti for Flower Shower -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <style>
     :root {
@@ -16,7 +16,6 @@
       --deep-crimson: #6b1422;
       --sacred-gold: #c6923b;
       --bright-gold: #f5d77f;
-      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #fef3c7 50%, #aa7c11 100%);
       --bg-cream: #faf5ef;
       --card-bg: rgba(255, 252, 248, 0.98);
       --text-dark: #292122;
@@ -28,32 +27,38 @@
       padding: 0;
     }
 
-    body {
-      background: radial-gradient(circle at top, #fdf8f3 0%, #ede0d4 100%);
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #110507;
       font-family: 'Montserrat', sans-serif;
       color: var(--text-dark);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
       overflow-x: hidden;
     }
 
-    /* --- TRADITIONAL INDIAN WEDDING ENVELOPE --- */
+    body {
+      background: radial-gradient(circle at top, #fdf8f3 0%, #ede0d4 100%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 16px 12px;
+      min-height: 100dvh;
+    }
+
+    /* --- TRUE FULL-SCREEN OPENING OVERLAY --- */
     #welcomeOverlay {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle at center, #1f080c 0%, #0d0204 100%);
-      z-index: 9999;
+      height: 100dvh;
+      background: radial-gradient(circle at center, #260a0f 0%, #0d0204 100%);
+      z-index: 99999;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 16px;
-      transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.9s;
+      padding: 12px;
+      margin: 0;
+      transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.85s;
     }
 
     #welcomeOverlay.hidden {
@@ -62,34 +67,33 @@
       pointer-events: none;
     }
 
+    /* Full-height styled royal envelope */
     .envelope-pocket {
       width: 100%;
-      max-width: 375px;
-      height: 610px;
+      max-width: 400px;
+      height: 94dvh;
+      max-height: 680px;
       background: #fdfbf7;
       background-image: 
-        radial-gradient(#e8ddcc 0.75px, transparent 0.75px),
-        linear-gradient(to bottom, #ffffff 0%, #faf3e8 100%);
+        radial-gradient(#ebd9c8 0.8px, transparent 0.8px),
+        linear-gradient(to bottom, #ffffff 0%, #faf1e3 100%);
       background-size: 14px 14px, 100% 100%;
-      border-radius: 6px;
-      box-shadow: 0 30px 75px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(198, 146, 59, 0.5);
+      border-radius: 12px;
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(198, 146, 59, 0.45);
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 34px 20px 26px;
+      padding: 28px 18px 22px;
       overflow: hidden;
     }
 
-    /* Traditional Indian Toran / Gold Borders */
     .ornate-border {
       position: absolute;
-      top: 8px;
-      left: 8px;
-      right: 8px;
-      bottom: 8px;
+      inset: 8px;
       border: 1px solid rgba(198, 146, 59, 0.35);
+      border-radius: 8px;
       pointer-events: none;
     }
 
@@ -98,34 +102,27 @@
       z-index: 2;
     }
 
-    /* Exchange Rings & Tying Knot Vector Icon */
-    .sacred-rings-svg {
-      width: 58px;
-      height: 38px;
-      margin-bottom: 4px;
+    /* Holding Hands Vector Art */
+    .holding-hands-svg {
+      width: 82px;
+      height: 52px;
+      margin-bottom: 2px;
       filter: drop-shadow(0 2px 4px rgba(198, 146, 59, 0.25));
     }
 
     .date-badge {
       font-family: 'Cinzel', serif;
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       letter-spacing: 4px;
       color: var(--sacred-gold);
       text-transform: uppercase;
       font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .knot-symbol {
-      display: inline-block;
-      font-size: 1.1rem;
-      color: var(--sacred-gold);
-      margin-bottom: 2px;
+      margin-bottom: 8px;
     }
 
     .couple-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.35rem;
+      font-size: 2.3rem;
       font-weight: 600;
       color: var(--deep-crimson);
       letter-spacing: 0.5px;
@@ -135,32 +132,32 @@
     .and-glyph {
       display: block;
       font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       letter-spacing: 3px;
       color: var(--sacred-gold);
-      margin: 4px 0;
+      margin: 3px 0;
     }
 
     /* Pointed Envelope Flap */
     .envelope-flap {
       position: absolute;
-      top: 248px;
+      top: 42%;
       left: 0;
       width: 100%;
-      height: 126px;
-      background: #f7ede0;
-      border-top: 1.5px solid #ebd4ba;
+      height: 120px;
+      background: #f7ebe0;
+      border-top: 1.5px solid #ecd3bd;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
       z-index: 3;
     }
 
-    /* Modern Royal Open Medallion Button */
+    /* Holding Hands Royal Open Medallion */
     .seal-tap-zone {
       position: absolute;
-      top: 310px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, -35%);
       z-index: 5;
       cursor: pointer;
       display: flex;
@@ -169,13 +166,13 @@
     }
 
     .royal-medallion {
-      width: 92px;
-      height: 92px;
+      width: 96px;
+      height: 96px;
       background: radial-gradient(circle at 35% 35%, #9b1c2e 0%, #6b1422 65%, #420811 100%);
       border-radius: 50%;
-      border: 3px solid #d4af37;
+      border: 3.5px solid #d4af37;
       box-shadow: 
-        0 10px 26px rgba(0, 0, 0, 0.45),
+        0 10px 28px rgba(0, 0, 0, 0.45),
         inset 0 2px 6px rgba(255, 255, 255, 0.4),
         0 0 0 4px rgba(212, 175, 55, 0.25);
       display: flex;
@@ -188,7 +185,6 @@
       overflow: hidden;
     }
 
-    /* Shimmer highlight line */
     .royal-medallion::after {
       content: "";
       position: absolute;
@@ -196,7 +192,7 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: linear-gradient(60deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+      background: linear-gradient(60deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
       transform: rotate(25deg);
       animation: sweepShine 3.5s infinite;
     }
@@ -205,9 +201,10 @@
       transform: scale(1.08);
     }
 
-    .medallion-icon {
-      font-size: 1.5rem;
-      line-height: 1;
+    .medallion-icon-svg {
+      width: 38px;
+      height: 28px;
+      fill: #faebd7;
       margin-bottom: 2px;
       filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
     }
@@ -222,8 +219,8 @@
     }
 
     @keyframes divineGlow {
-      0%, 100% { box-shadow: 0 10px 26px rgba(0,0,0,0.45), 0 0 0 4px rgba(212, 175, 55, 0.25); }
-      50% { box-shadow: 0 10px 28px rgba(155, 28, 46, 0.6), 0 0 0 10px rgba(212, 175, 55, 0); }
+      0%, 100% { box-shadow: 0 10px 28px rgba(0,0,0,0.45), 0 0 0 4px rgba(212, 175, 55, 0.25); }
+      50% { box-shadow: 0 10px 30px rgba(155, 28, 46, 0.6), 0 0 0 10px rgba(212, 175, 55, 0); }
     }
 
     @keyframes sweepShine {
@@ -234,12 +231,11 @@
     .envelope-footer {
       text-align: center;
       z-index: 2;
-      margin-top: 140px;
     }
 
     .invite-caption {
       font-family: 'Cinzel', serif;
-      font-size: 0.63rem;
+      font-size: 0.65rem;
       letter-spacing: 3px;
       color: #8c7864;
       text-transform: uppercase;
@@ -253,7 +249,7 @@
       letter-spacing: 5px;
     }
 
-    /* --- MAIN INVITATION CARD (SLIDE / POP-OUT) --- */
+    /* --- MAIN INVITATION CARD --- */
     .invite-card {
       max-width: 440px;
       width: 100%;
@@ -269,6 +265,7 @@
       opacity: 0;
       transform: translateY(40px) scale(0.92);
       transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      margin: auto 0;
     }
 
     .invite-card.show {
@@ -295,7 +292,7 @@
       overflow: hidden;
     }
 
-    /* Uninterrupted Pure Motion Video */
+    /* Smooth Pure Video - No Mute Button */
     video {
       width: 100%;
       height: auto;
@@ -433,36 +430,40 @@
 </head>
 <body>
 
-  <!-- Indian Wedding Royal Envelope Screen -->
+  <!-- Full-Screen Indian Wedding Envelope -->
   <div id="welcomeOverlay">
     <div class="envelope-pocket">
       <div class="ornate-border"></div>
 
       <div class="letterhead">
-        <!-- Rings Exchange Vector -->
-        <svg class="sacred-rings-svg" viewBox="0 0 60 40" fill="none">
-          <!-- Left Ring (Groom) -->
-          <circle cx="24" cy="22" r="13" stroke="url(#goldGrad)" stroke-width="2.6"/>
-          <!-- Right Ring (Bride with Solitaire Diamond) -->
-          <circle cx="36" cy="20" r="12" stroke="url(#goldGrad)" stroke-width="2.6"/>
-          <path d="M36 6 L33 9 L36 12 L39 9 Z" fill="#ffffff" stroke="#c6923b" stroke-width="0.8"/>
-          <!-- Shimmer Stars -->
-          <circle cx="43" cy="5" r="1.5" fill="#f5d77f"/>
+        <!-- Groom Holding Bride's Hand Illustration -->
+        <svg class="holding-hands-svg" viewBox="0 0 100 65" fill="none">
+          <!-- Groom Arm & Hand -->
+          <path d="M10 40 C28 42, 42 36, 54 30 C58 28, 62 30, 65 34 C67 37, 65 41, 58 44 C48 48, 32 50, 10 48" stroke="url(#handsGold)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Bride Arm with Bangles -->
+          <path d="M90 24 C74 25, 62 30, 52 35 C48 37, 46 41, 49 44 C53 47, 58 45, 66 40 C75 35, 84 32, 90 32" stroke="url(#handsGold)" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- Bride Glass Bangles (Valayal) -->
+          <ellipse cx="80" cy="28" rx="2.5" ry="6" stroke="#c6923b" stroke-width="1.6"/>
+          <ellipse cx="76" cy="29" rx="2.5" ry="6" stroke="#892837" stroke-width="1.6"/>
+          <ellipse cx="72" cy="30" rx="2.5" ry="6" stroke="#c6923b" stroke-width="1.6"/>
+          <!-- Wedding Band Ring on Finger -->
+          <circle cx="56" cy="33" r="2.2" fill="#f5d77f" stroke="#c6923b" stroke-width="1"/>
+          <!-- Sparkle Above Intertwined Hands -->
+          <path d="M54 16 L56 21 L61 23 L56 25 L54 30 L52 25 L47 23 L52 21 Z" fill="#f5d77f"/>
           <defs>
-            <linearGradient id="goldGrad" x1="0" y1="0" x2="60" y2="40" gradientUnits="userSpaceOnUse">
+            <linearGradient id="handsGold" x1="0" y1="0" x2="100" y2="65" gradientUnits="userSpaceOnUse">
               <stop stop-color="#c6923b"/>
               <stop offset="0.5" stop-color="#faebd7"/>
-              <stop offset="1" stop-color="#9a6e22"/>
+              <stop offset="1" stop-color="#8c5d15"/>
             </linearGradient>
           </defs>
         </svg>
 
         <div class="date-badge">— 20 · NOV · 2026 —</div>
-        <div class="knot-symbol">𑁍</div>
         
         <div class="couple-title">
           Guru
-          <span class="and-glyph">TIED THE KNOT WITH</span>
+          <span class="and-glyph">HOLDS THE HAND OF</span>
           Epsiba
         </div>
       </div>
@@ -470,10 +471,15 @@
       <!-- Pointed Triangular Flap -->
       <div class="envelope-flap"></div>
 
-      <!-- Royal Medallion Open Button -->
+      <!-- Royal Medallion Open Button with Hand Gesture -->
       <div class="seal-tap-zone" onclick="openInvitation()">
         <div class="royal-medallion">
-          <div class="medallion-icon">💍</div>
+          <!-- Holding Hands Icon -->
+          <svg class="medallion-icon-svg" viewBox="0 0 40 30" fill="none">
+            <path d="M4 18 C12 19, 18 16, 24 13 C26 12, 28 13, 29 15 C30 17, 28 19, 24 21 C18 23, 12 23, 4 22" stroke="#faebd7" stroke-width="2" stroke-linecap="round"/>
+            <path d="M36 10 C28 11, 23 13, 19 16 C17 17, 16 19, 18 20 C20 22, 23 21, 27 18 C31 16, 34 14, 36 14" stroke="#faebd7" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="23" cy="14" r="1.5" fill="#f5d77f"/>
+          </svg>
           <div class="medallion-text">Open</div>
         </div>
       </div>
@@ -491,7 +497,6 @@
   <!-- Main Invitation Pop-Out Card -->
   <main class="invite-card" id="inviteCard">
     <div class="video-frame">
-      <!-- Auto-loops with audio, zero overlay controls -->
       <video 
         id="inviteVideo" 
         playsinline 
@@ -560,7 +565,6 @@
   <script>
     const video = document.getElementById('inviteVideo');
 
-    // Traditional Indian Festival Flower Shower (Rose, Jasmine, Marigold Petals)
     function triggerFlowerShower() {
       const petals = ['#d82643', '#ff758f', '#fff4f6', '#fca311', '#ffffff'];
 
@@ -604,21 +608,19 @@
     }
 
     function openInvitation() {
-      // 1. Shower petals
       triggerFlowerShower();
 
       const overlay = document.getElementById('welcomeOverlay');
       const card = document.getElementById('inviteCard');
 
-      // 2. Slide out and autoplay unmuted
       setTimeout(() => {
         overlay.classList.add('hidden');
         card.classList.add('show');
 
-        // Play unmuted with audio as guest clicked
+        // Play unmuted with audio
         video.muted = false;
         video.play().catch(err => {
-          console.log("Browser policy blocked audio autoplay, fallback muted:", err);
+          console.log("Audio autoplay restricted, falling back to muted:", err);
           video.muted = true;
           video.play();
         });
