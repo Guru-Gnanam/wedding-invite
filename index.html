@@ -107,12 +107,57 @@
       pointer-events: none;
     }
 
+    /* Cute Floating Music Pill Button */
+    .front-music-pill {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 10;
+      background: rgba(137, 40, 55, 0.08);
+      border: 1px solid rgba(198, 146, 59, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .front-music-pill:hover {
+      background: rgba(137, 40, 55, 0.15);
+      transform: scale(1.04);
+    }
+
+    .music-note-icon {
+      font-size: 0.82rem;
+      animation: noteBob 2s infinite ease-in-out;
+    }
+
+    .front-music-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 1.5px;
+      color: var(--primary-wine);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    @keyframes noteBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+
     .letterhead {
       text-align: center;
       z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-top: 10px;
     }
 
     .hands-circle-frame {
@@ -458,7 +503,7 @@
 </head>
 <body>
 
-  <!-- Background Music for Opening Screen -->
+  <!-- Audio track for envelope screen -->
   <audio id="frontAudio" loop preload="auto">
     <source src="bg-music.mp3" type="audio/mpeg" />
   </audio>
@@ -467,6 +512,12 @@
   <div id="welcomeOverlay">
     <div class="envelope-pocket">
       <div class="ornate-border"></div>
+
+      <!-- Cute Front Music Toggle Pill -->
+      <button class="front-music-pill" id="musicPillBtn" onclick="toggleFrontAudio(event)">
+        <span class="music-note-icon" id="musicNoteIcon">🎵</span>
+        <span class="front-music-text" id="musicPillText">Music</span>
+      </button>
 
       <div class="letterhead">
         <!-- Couple Holding Hands Framed Image -->
@@ -489,7 +540,6 @@
       <!-- Royal Medallion Open Button with Golden Sacred Heart -->
       <div class="seal-tap-zone" onclick="openInvitation(event)">
         <div class="royal-medallion">
-          <!-- Perfectly Matched Gold Foil Heart -->
           <svg class="medallion-heart-svg" viewBox="0 0 32 32">
             <defs>
               <linearGradient id="heartGold" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
@@ -591,22 +641,23 @@
   <script>
     const frontAudio = document.getElementById('frontAudio');
     const video = document.getElementById('inviteVideo');
+    const musicNoteIcon = document.getElementById('musicNoteIcon');
+    const musicPillText = document.getElementById('musicPillText');
 
-    // Auto-play front background music on first user touch anywhere
-    function tryPlayFrontAudio() {
-      if (frontAudio && frontAudio.paused) {
-        frontAudio.play().catch(() => {});
+    function toggleFrontAudio(e) {
+      if (e) e.stopPropagation();
+
+      if (frontAudio.paused) {
+        frontAudio.play().then(() => {
+          musicNoteIcon.innerText = "🎶";
+          musicPillText.innerText = "Pause";
+        }).catch(err => console.log("Audio playback blocked:", err));
+      } else {
+        frontAudio.pause();
+        musicNoteIcon.innerText = "🎵";
+        musicPillText.innerText = "Music";
       }
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      frontAudio.volume = 0.8;
-      frontAudio.play().catch(() => {
-        // Fallback: Start audio on the very first touch/click anywhere on the screen
-        document.body.addEventListener('touchstart', tryPlayFrontAudio, { once: true });
-        document.body.addEventListener('click', tryPlayFrontAudio, { once: true });
-      });
-    });
 
     function triggerFlowerShower() {
       const petals = ['#d82643', '#ff758f', '#fff4f6', '#fca311', '#ffffff'];
@@ -655,15 +706,17 @@
 
       triggerFlowerShower();
 
-      // Smoothly fade out front music
-      let fadeAudio = setInterval(() => {
-        if (frontAudio.volume > 0.1) {
-          frontAudio.volume -= 0.2;
-        } else {
-          clearInterval(fadeAudio);
-          frontAudio.pause();
-        }
-      }, 50);
+      // Smoothly fade out front music if playing
+      if (!frontAudio.paused) {
+        let fadeAudio = setInterval(() => {
+          if (frontAudio.volume > 0.1) {
+            frontAudio.volume -= 0.2;
+          } else {
+            clearInterval(fadeAudio);
+            frontAudio.pause();
+          }
+        }, 50);
+      }
 
       const overlay = document.getElementById('welcomeOverlay');
       const card = document.getElementById('inviteCard');
