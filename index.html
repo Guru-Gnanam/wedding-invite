@@ -67,7 +67,6 @@
       pointer-events: none;
     }
 
-    /* Full-height styled royal envelope */
     .envelope-pocket {
       width: 100%;
       max-width: 400px;
@@ -85,7 +84,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 28px 18px 22px;
+      padding: 30px 18px 24px;
       overflow: hidden;
     }
 
@@ -102,12 +101,12 @@
       z-index: 2;
     }
 
-    /* Holding Hands Vector Art */
-    .holding-hands-svg {
-      width: 82px;
+    /* Clear Intertwined Rings Vector Graphic */
+    .rings-exchange-svg {
+      width: 80px;
       height: 52px;
-      margin-bottom: 2px;
-      filter: drop-shadow(0 2px 4px rgba(198, 146, 59, 0.25));
+      margin-bottom: 6px;
+      filter: drop-shadow(0 3px 6px rgba(198, 146, 59, 0.35));
     }
 
     .date-badge {
@@ -122,7 +121,7 @@
 
     .couple-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.3rem;
+      font-size: 2.35rem;
       font-weight: 600;
       color: var(--deep-crimson);
       letter-spacing: 0.5px;
@@ -152,7 +151,7 @@
       z-index: 3;
     }
 
-    /* Holding Hands Royal Open Medallion */
+    /* Royal Medallion Open Button */
     .seal-tap-zone {
       position: absolute;
       top: 50%;
@@ -202,16 +201,15 @@
     }
 
     .medallion-icon-svg {
-      width: 38px;
-      height: 28px;
-      fill: #faebd7;
+      width: 44px;
+      height: 32px;
       margin-bottom: 2px;
-      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
     }
 
     .medallion-text {
       font-family: 'Cinzel', serif;
-      font-size: 0.58rem;
+      font-size: 0.6rem;
       letter-spacing: 2px;
       color: #faebd7;
       font-weight: 700;
@@ -292,7 +290,6 @@
       overflow: hidden;
     }
 
-    /* Smooth Pure Video - No Mute Button */
     video {
       width: 100%;
       height: auto;
@@ -436,34 +433,45 @@
       <div class="ornate-border"></div>
 
       <div class="letterhead">
-        <!-- Groom Holding Bride's Hand Illustration -->
-        <svg class="holding-hands-svg" viewBox="0 0 100 65" fill="none">
-          <!-- Groom Arm & Hand -->
-          <path d="M10 40 C28 42, 42 36, 54 30 C58 28, 62 30, 65 34 C67 37, 65 41, 58 44 C48 48, 32 50, 10 48" stroke="url(#handsGold)" stroke-width="2.5" stroke-linecap="round"/>
-          <!-- Bride Arm with Bangles -->
-          <path d="M90 24 C74 25, 62 30, 52 35 C48 37, 46 41, 49 44 C53 47, 58 45, 66 40 C75 35, 84 32, 90 32" stroke="url(#handsGold)" stroke-width="2.2" stroke-linecap="round"/>
-          <!-- Bride Glass Bangles (Valayal) -->
-          <ellipse cx="80" cy="28" rx="2.5" ry="6" stroke="#c6923b" stroke-width="1.6"/>
-          <ellipse cx="76" cy="29" rx="2.5" ry="6" stroke="#892837" stroke-width="1.6"/>
-          <ellipse cx="72" cy="30" rx="2.5" ry="6" stroke="#c6923b" stroke-width="1.6"/>
-          <!-- Wedding Band Ring on Finger -->
-          <circle cx="56" cy="33" r="2.2" fill="#f5d77f" stroke="#c6923b" stroke-width="1"/>
-          <!-- Sparkle Above Intertwined Hands -->
-          <path d="M54 16 L56 21 L61 23 L56 25 L54 30 L52 25 L47 23 L52 21 Z" fill="#f5d77f"/>
+        <!-- High-Detail Intertwined Wedding Rings -->
+        <svg class="rings-exchange-svg" viewBox="0 0 100 65" fill="none">
           <defs>
-            <linearGradient id="handsGold" x1="0" y1="0" x2="100" y2="65" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#c6923b"/>
-              <stop offset="0.5" stop-color="#faebd7"/>
-              <stop offset="1" stop-color="#8c5d15"/>
+            <linearGradient id="ringGold" x1="0" y1="0" x2="100" y2="65" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#e8c078"/>
+              <stop offset="0.5" stop-color="#fff5db"/>
+              <stop offset="1" stop-color="#9d7328"/>
+            </linearGradient>
+            <linearGradient id="diamondShine" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#ffffff"/>
+              <stop offset="1" stop-color="#bce3eb"/>
             </linearGradient>
           </defs>
+
+          <!-- Left Ring (Groom's Classic Gold Band) -->
+          <circle cx="38" cy="38" r="20" stroke="url(#ringGold)" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="38" cy="38" r="17" stroke="#684a12" stroke-width="0.75" opacity="0.6"/>
+
+          <!-- Right Ring (Bride's Solitaire Diamond Ring Intertwined) -->
+          <circle cx="62" cy="36" r="19" stroke="url(#ringGold)" stroke-width="4" stroke-linecap="round"/>
+
+          <!-- Solitaire Diamond Crown Setting -->
+          <path d="M57 17 L67 17 L69 12 L55 12 Z" fill="url(#ringGold)"/>
+          
+          <!-- Diamond Solitaire Gem -->
+          <polygon points="62,4 56,12 68,12" fill="url(#diamondShine)" stroke="#8ec5d1" stroke-width="0.8"/>
+          <line x1="59" y1="12" x2="62" y2="4" stroke="#ffffff" stroke-width="0.8"/>
+          <line x1="65" y1="12" x2="62" y2="4" stroke="#ffffff" stroke-width="0.8"/>
+
+          <!-- Diamond Sparkle Prisms -->
+          <path d="M62 -2 L63 2 L67 3 L63 4 L62 8 L61 4 L57 3 L61 2 Z" fill="#ffffff"/>
+          <circle cx="72" cy="8" r="1.5" fill="#fdf0cd"/>
         </svg>
 
         <div class="date-badge">— 20 · NOV · 2026 —</div>
         
         <div class="couple-title">
           Guru
-          <span class="and-glyph">HOLDS THE HAND OF</span>
+          <span class="and-glyph">EXCHANGE RINGS WITH</span>
           Epsiba
         </div>
       </div>
@@ -471,14 +479,18 @@
       <!-- Pointed Triangular Flap -->
       <div class="envelope-flap"></div>
 
-      <!-- Royal Medallion Open Button with Hand Gesture -->
+      <!-- Royal Medallion Open Button with Clear Wedding Rings -->
       <div class="seal-tap-zone" onclick="openInvitation()">
         <div class="royal-medallion">
-          <!-- Holding Hands Icon -->
-          <svg class="medallion-icon-svg" viewBox="0 0 40 30" fill="none">
-            <path d="M4 18 C12 19, 18 16, 24 13 C26 12, 28 13, 29 15 C30 17, 28 19, 24 21 C18 23, 12 23, 4 22" stroke="#faebd7" stroke-width="2" stroke-linecap="round"/>
-            <path d="M36 10 C28 11, 23 13, 19 16 C17 17, 16 19, 18 20 C20 22, 23 21, 27 18 C31 16, 34 14, 36 14" stroke="#faebd7" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="23" cy="14" r="1.5" fill="#f5d77f"/>
+          <svg class="medallion-icon-svg" viewBox="0 0 50 35" fill="none">
+            <!-- Left Ring -->
+            <circle cx="20" cy="20" r="10" stroke="#fcead2" stroke-width="2.6"/>
+            <!-- Right Ring with Diamond -->
+            <circle cx="32" cy="18" r="9.5" stroke="#fcead2" stroke-width="2.4"/>
+            <!-- Solitaire Diamond on Medallion -->
+            <polygon points="32,2 28,7 36,7" fill="#ffffff" stroke="#fcead2" stroke-width="0.5"/>
+            <!-- Sparkle -->
+            <circle cx="36" cy="3" r="1" fill="#f5d77f"/>
           </svg>
           <div class="medallion-text">Open</div>
         </div>
