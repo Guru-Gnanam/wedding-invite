@@ -4,21 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wedding Invitation | Gurunathan & Mariya Epsiba</title>
-  
-  <!-- Romantic & Elegant Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --burgundy: #8c2637;
-      --deep-wine: #5e1925;
-      --gold-accent: #c59b27;
-      --gold-light: #f4e8c1;
-      --bg-warm: #faf5ee;
-      --card-bg: #fffdfa;
-      --text-muted: #6e645f;
+      --primary-wine: #892837;
+      --secondary-rose: #a85868;
+      --antique-gold: #c29b62;
+      --bg-cream: #faf5ef;
+      --card-bg: rgba(255, 252, 248, 0.96);
+      --text-dark: #3b2c2d;
     }
 
     * {
@@ -28,239 +24,375 @@
     }
 
     body {
-      background: radial-gradient(circle at top, #fdf8f2 0%, #f4ede2 100%);
+      background: radial-gradient(circle at top, #fdf6f0 0%, #f4e8dc 100%);
       font-family: 'Montserrat', sans-serif;
-      color: #332d29;
+      color: var(--text-dark);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 16px 12px;
+      padding: 20px 14px;
+      overflow-x: hidden;
     }
 
-    .invite-card {
-      width: 100%;
-      max-width: 440px;
-      background: var(--card-bg);
-      border-radius: 24px;
-      box-shadow: 0 16px 40px rgba(140, 38, 55, 0.08), 0 2px 10px rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(197, 155, 39, 0.25);
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Video Player Styling */
-    .video-container {
-      width: 100%;
-      position: relative;
-      background: #000;
-      border-bottom: 2px solid var(--gold-light);
-    }
-
-    video {
-      width: 100%;
-      display: block;
-      outline: none;
-    }
-
-    /* Header Section */
-    .header-text {
+    /* --- OVERLAY ENVELOPE / OPEN SCREEN --- */
+    #welcomeOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #fff9f3 0%, #f4e8dc 100%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
       text-align: center;
-      padding: 24px 20px 8px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
 
-    .sub-head {
-      font-family: 'Cinzel', serif;
-      font-size: 0.78rem;
-      letter-spacing: 3px;
-      color: var(--burgundy);
+    #welcomeOverlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .cover-box {
+      border: 1px solid #ebdcd0;
+      padding: 40px 24px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 16px 36px rgba(137, 40, 55, 0.08);
+      max-width: 360px;
+      width: 100%;
+    }
+
+    .cover-badge {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      color: var(--antique-gold);
       text-transform: uppercase;
       margin-bottom: 8px;
     }
 
-    .couple-names {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.7rem;
-      line-height: 1.15;
-      color: var(--burgundy);
-      margin-bottom: 4px;
-      font-weight: 400;
-      text-shadow: 0 1px 2px rgba(140, 38, 55, 0.1);
+    .cover-names {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.8rem;
+      color: var(--primary-wine);
+      line-height: 1.2;
+      margin-bottom: 24px;
     }
 
-    .couple-names span {
-      display: block;
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      color: var(--gold-accent);
-      margin: 2px 0;
+    .btn-open {
+      background: linear-gradient(135deg, #892837 0%, #aa3d50 100%);
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 12px 28px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(137, 40, 55, 0.25);
+      transition: all 0.3s ease;
     }
 
-    .intro-quote {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 10px;
-      line-height: 1.5;
+    .btn-open:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(137, 40, 55, 0.35);
     }
 
-    /* Event Sections */
-    .events-wrapper {
-      padding: 16px 18px 24px;
+    /* --- MAIN INVITATION CARD (POP OUT) --- */
+    .invite-card {
+      max-width: 440px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid #ebdcd0;
+      border-radius: 28px;
+      box-shadow: 0 16px 40px rgba(137, 40, 55, 0.08);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-    }
-
-    .event-box {
-      background: linear-gradient(145deg, #fffdf8 0%, #fbf5ec 100%);
-      border: 1px solid #ebd9c8;
-      border-radius: 16px;
-      padding: 20px 16px;
-      text-align: center;
+      align-items: center;
       position: relative;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .event-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
-      color: var(--burgundy);
-      letter-spacing: 2px;
-      font-weight: 700;
+    .invite-card.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .invite-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #c29b62, #892837, #c29b62);
+    }
+
+    .video-frame {
+      width: 100%;
+      background: #000;
+      line-height: 0;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .content {
+      width: 100%;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .intro-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--secondary-rose);
+      font-style: italic;
+    }
+
+    h1.names {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.7rem;
+      color: var(--primary-wine);
+      line-height: 1.2;
+      margin: 4px 0 16px;
+    }
+
+    /* --- COUNTDOWN TIMER --- */
+    .timer-container {
+      margin-bottom: 22px;
+      background: #fff;
+      border: 1px solid #ebdcd0;
+      border-radius: 16px;
+      padding: 14px 10px;
+    }
+
+    .timer-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      letter-spacing: 1.5px;
+      color: var(--antique-gold);
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
-    .divider {
-      width: 40px;
-      height: 2px;
-      background: var(--gold-accent);
-      margin: 0 auto 10px;
-      border-radius: 2px;
+    .timer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .time-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .time-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--primary-wine);
+    }
+
+    .time-unit {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      color: #888;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- EVENT DETAILS --- */
+    .event-card {
+      background: #ffffff;
+      border: 1px solid #ebdcd0;
+      border-radius: 18px;
+      padding: 16px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(194, 155, 98, 0.07);
+    }
+
+    .event-type {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-wine);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
     }
 
     .event-date {
-      font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #2b2320;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #3b2c2d;
       margin-bottom: 4px;
     }
 
     .event-venue {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-      line-height: 1.4;
+      font-size: 0.86rem;
+      color: #6d5b5d;
+      margin-bottom: 12px;
     }
 
-    /* Buttons */
-    .button-group {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .btn {
-      text-decoration: none;
-      padding: 8px 18px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      border-radius: 25px;
-      transition: all 0.25s ease;
+    .btn-direction {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--burgundy) 0%, var(--deep-wine) 100%);
-      color: #fff;
-      box-shadow: 0 4px 10px rgba(140, 38, 55, 0.25);
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 6px 14px rgba(140, 38, 55, 0.35);
-      transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--gold-accent);
-      color: var(--deep-wine);
-      background: #fff;
-    }
-
-    .btn-outline:hover {
-      background: var(--gold-light);
-    }
-
-    .footer {
-      text-align: center;
-      padding-bottom: 22px;
+      text-decoration: none;
+      background: linear-gradient(135deg, #892837 0%, #aa3d50 100%);
+      color: #ffffff;
       font-size: 0.8rem;
-      color: #9c9189;
+      padding: 7px 20px;
+      border-radius: 20px;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-direction:hover {
+      opacity: 0.9;
+    }
+
+    .footer-blessing {
+      font-family: 'Cormorant Garamond', serif;
       font-style: italic;
+      color: var(--secondary-rose);
+      font-size: 1.05rem;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <main class="invite-card">
-    <!-- Wedding Video Invite -->
-    <div class="video-container">
-      <video controls playsinline preload="metadata">
+  <!-- Open Cover Screen -->
+  <div id="welcomeOverlay">
+    <div class="cover-box">
+      <div class="cover-badge">Wedding Invitation</div>
+      <div class="cover-names">Gurunathan & Mariya</div>
+      <button class="btn-open" onclick="openInvitation()">✉ Open Invitation</button>
+    </div>
+  </div>
+
+  <!-- Main Card with Pop-Out Animation -->
+  <main class="invite-card" id="inviteCard">
+    <div class="video-frame">
+      <video id="inviteVideo" controls playsinline preload="auto">
         <source src="invite.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        Your browser does not support the video element.
       </video>
     </div>
 
-    <!-- Title & Names -->
-    <section class="header-text">
-      <p class="sub-head">Together with our families</p>
-      <h1 class="couple-names">
-        Gurunathan G
-        <span>&</span>
-        Mariya Epsiba S
-      </h1>
-      <p class="intro-quote">Joyfully invite you to celebrate the beginning of our new chapter together.</p>
-    </section>
+    <div class="content">
+      <div class="intro-text">Together with our families</div>
+      <h1 class="names">Gurunathan & Mariya</h1>
 
-    <!-- Event Details Cards -->
-    <section class="events-wrapper">
-      
-      <!-- Wedding Event -->
-      <article class="event-box">
-        <h2 class="event-title">Wedding Celebration</h2>
-        <div class="divider"></div>
-        <p class="event-date">20th November 2026</p>
-        <p class="event-venue">MJR Mahal, Marakkanam</p>
-        <div class="button-group">
-          <a href="https://maps.google.com/?q=MJR+Mahal+Marakkanam" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            📍 Directions
-          </a>
+      <!-- Countdown -->
+      <section class="timer-container">
+        <div class="timer-label">Counting Down To The Big Day</div>
+        <div class="timer-grid">
+          <div class="time-box">
+            <span class="time-val" id="days">00</span>
+            <span class="time-unit">Days</span>
+          </div>
+          <div class="time-box">
+            <span class="time-val" id="hours">00</span>
+            <span class="time-unit">Hours</span>
+          </div>
+          <div class="time-box">
+            <span class="time-val" id="minutes">00</span>
+            <span class="time-unit">Mins</span>
+          </div>
+          <div class="time-box">
+            <span class="time-val" id="seconds">00</span>
+            <span class="time-unit">Secs</span>
+          </div>
         </div>
-      </article>
+      </section>
+
+      <!-- Wedding Event -->
+      <section class="event-card">
+        <div class="event-type">Wedding Celebration</div>
+        <div class="event-date">Friday, 20th November 2026</div>
+        <div class="event-venue">MJR Mahal, Marakkanam</div>
+        <a href="https://maps.google.com/?q=MJR+Mahal+Marakkanam" target="_blank" rel="noopener noreferrer" class="btn-direction">
+          📍 View Location
+        </a>
+      </section>
 
       <!-- Reception Event -->
-      <article class="event-box">
-        <h2 class="event-title">Reception Celebration</h2>
-        <div class="divider"></div>
-        <p class="event-date">25th November 2026</p>
-        <p class="event-venue">Om Thirumana Mandapam</p>
-        <div class="button-group">
-          <a href="https://maps.google.com/?q=Om+Thirumana+Mandapam" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            📍 Directions
-          </a>
-        </div>
-      </article>
+      <section class="event-card">
+        <div class="event-type">Reception Celebration</div>
+        <div class="event-date">Wednesday, 25th November 2026</div>
+        <div class="event-venue">Om Thirumana Mandapam</div>
+        <a href="https://maps.google.com/?q=Om+Thirumana+Mandapam" target="_blank" rel="noopener noreferrer" class="btn-direction">
+          📍 View Location
+        </a>
+      </section>
 
-    </section>
-
-    <footer class="footer">
-      Bless us with your presence & prayers
-    </footer>
+      <p class="footer-blessing">We warmly seek your presence and blessings</p>
+    </div>
   </main>
+
+  <script>
+    // Trigger pop-out and video autoplay on user click
+    function openInvitation() {
+      const overlay = document.getElementById('welcomeOverlay');
+      const card = document.getElementById('inviteCard');
+      const video = document.getElementById('inviteVideo');
+
+      overlay.classList.add('hidden');
+      card.classList.add('show');
+
+      // Autoplay with audio
+      video.play().catch(err => {
+        // Fallback for strict browser restrictions
+        console.log("Autoplay unmuted prevented by device, attempting muted play:", err);
+        video.muted = true;
+        video.play();
+      });
+    }
+
+    // Countdown Timer Logic
+    const weddingDate = new Date("November 20, 2026 09:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(days).padStart(2, '0');
+        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+      } else {
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 
 </body>
 </html>
