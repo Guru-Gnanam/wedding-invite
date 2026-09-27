@@ -6,7 +6,7 @@
   <title>Wedding & Reception Invite | Guru & Epsiba</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-wine: #892837;
@@ -14,7 +14,6 @@
       --forest-green: #244434;
       --sage-green: #5a7d69;
       --light-sage: #eaf1ec;
-      --antique-gold: #c29b62;
       --bg-cream: #faf5ef;
       --card-bg: rgba(255, 252, 248, 0.96);
       --text-dark: #29332d;
@@ -34,24 +33,23 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px 14px;
+      padding: 16px;
       overflow-x: hidden;
     }
 
-    /* --- NATURE / BOTANICAL OPENING SCREEN --- */
+    /* --- REALISTIC ENVELOPE OPENING SCREEN --- */
     #welcomeOverlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle at center, #1b3528 0%, #0d1e16 100%);
+      background: #141b17;
       z-index: 9999;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 16px;
       transition: opacity 0.8s ease, visibility 0.8s ease;
     }
 
@@ -61,119 +59,165 @@
       pointer-events: none;
     }
 
-    .nature-card {
+    /* Textured Vertical Envelope Pocket */
+    .envelope-pocket {
       width: 100%;
-      max-width: 360px;
-      background: #fbfdfb;
-      border: 1.5px solid #c9d8ce;
-      border-radius: 20px;
-      padding: 38px 24px 34px;
+      max-width: 375px;
+      height: 600px;
+      background: #fdfcf9;
+      background-image: radial-gradient(#ece6dc 0.7px, transparent 0.7px);
+      background-size: 14px 14px;
+      border-radius: 6px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(210, 195, 175, 0.5);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 38px 20px 24px;
+      overflow: hidden;
+    }
+
+    /* Top Letterhead Details */
+    .letterhead {
       text-align: center;
-      position: relative;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 0 7px rgba(90, 125, 105, 0.2);
+      z-index: 2;
     }
 
-    /* Botanical Corner Leaf Accents */
-    .leaf-decor {
-      position: absolute;
-      font-size: 1.3rem;
-      color: var(--sage-green);
-      opacity: 0.7;
-    }
-    .top-left { top: 12px; left: 14px; transform: rotate(-45deg); }
-    .top-right { top: 12px; right: 14px; transform: rotate(45deg); }
-    .bottom-left { bottom: 12px; left: 14px; transform: rotate(-135deg); }
-    .bottom-right { bottom: 12px; right: 14px; transform: rotate(135deg); }
-
-    .invitation-badge {
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      letter-spacing: 2.5px;
-      color: var(--forest-green);
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .botanical-glyph {
-      color: var(--antique-gold);
-      font-size: 1.25rem;
-      letter-spacing: 4px;
-      margin-bottom: 6px;
-    }
-
-    .envelope-title {
+    .monogram-script {
       font-family: 'Alex Brush', cursive;
-      font-size: 2.9rem;
-      color: var(--primary-wine);
-      line-height: 1.2;
-      margin-bottom: 6px;
+      font-size: 2.8rem;
+      color: #6d6257;
+      line-height: 1;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
     }
 
-    .envelope-sub {
+    .date-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 3.5px;
+      color: #8c8072;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .couple-title {
       font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      color: var(--sage-green);
-      font-size: 1.15rem;
-      margin-bottom: 26px;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: #2e2825;
+      letter-spacing: 1px;
+      line-height: 1.1;
     }
 
-    /* Emerald Wax Seal Button */
-    .wax-seal-wrapper {
-      position: relative;
-      display: inline-block;
+    .and-glyph {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: #9c8e7e;
+      margin: 4px 0;
+    }
+
+    /* Pointed Envelope Flap */
+    .envelope-flap {
+      position: absolute;
+      top: 240px;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: #f7f3ec;
+      border-top: 1px solid #ebdcd0;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+      z-index: 3;
+    }
+
+    /* Antique Gold Botanical Wax Seal Button */
+    .wax-seal-container {
+      position: absolute;
+      top: 310px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
       cursor: pointer;
-    }
-
-    .wax-seal {
-      width: 84px;
-      height: 84px;
-      background: radial-gradient(circle at 35% 35%, #2f5f47 0%, #1a3829 70%, #11261b 100%);
-      border-radius: 50%;
-      border: 3px dashed rgba(212, 175, 55, 0.65);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.25);
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    .gold-wax-seal {
+      width: 86px;
+      height: 86px;
+      background: radial-gradient(circle at 35% 35%, #e2be79 0%, #aa853c 60%, #76561f 100%);
+      border-radius: 50%;
+      box-shadow: 
+        0 8px 22px rgba(0, 0, 0, 0.35),
+        inset 0 3px 5px rgba(255, 255, 255, 0.4),
+        inset 0 -3px 5px rgba(0, 0, 0, 0.4);
+      display: flex;
       justify-content: center;
-      margin: 0 auto;
-      transition: transform 0.3s ease;
-      animation: emeraldPulse 2.6s infinite;
+      align-items: center;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 3px solid #8e6c2e;
     }
 
-    .wax-seal:hover {
-      transform: scale(1.06);
+    .gold-wax-seal:hover {
+      transform: scale(1.08);
     }
 
-    .seal-monogram {
-      font-family: 'Alex Brush', cursive;
-      font-size: 2.1rem;
-      color: #f5eedf;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    /* Embedded Botanical Laurel inside seal */
+    .seal-branches {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(255, 246, 222, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #3f2e0e;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+    }
+
+    .seal-icon {
+      font-size: 1.35rem;
       line-height: 1;
     }
 
-    .seal-subtext {
+    .seal-open-text {
       font-family: 'Cinzel', serif;
-      font-size: 0.55rem;
+      font-size: 0.52rem;
       letter-spacing: 1.5px;
-      color: #dfd2b9;
-      text-transform: uppercase;
+      color: #3b280a;
+      font-weight: 700;
       margin-top: 2px;
-    }
-
-    .tap-hint {
-      margin-top: 14px;
-      font-size: 0.76rem;
-      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--forest-green);
-      font-weight: 600;
     }
 
-    @keyframes emeraldPulse {
-      0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 0 rgba(47, 95, 71, 0.5); }
-      50% { box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 10px rgba(47, 95, 71, 0); }
+    /* Bottom Invitation Text & Foliage Motif */
+    .envelope-footer {
+      text-align: center;
+      z-index: 2;
+      margin-top: 140px;
+    }
+
+    .invite-caption {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 2.5px;
+      color: #8c8072;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+
+    .olive-branch-bottom {
+      font-size: 1.6rem;
+      color: #8c8072;
+      opacity: 0.85;
+      margin-top: 4px;
+      display: block;
     }
 
     /* --- MAIN INVITATION CARD (POP-OUT) --- */
@@ -199,7 +243,6 @@
       transform: translateY(0) scale(1);
     }
 
-    /* Decorative Green & Wine Ribbon */
     .invite-card::before {
       content: "";
       position: absolute;
@@ -208,18 +251,50 @@
       right: 0;
       height: 4px;
       background: linear-gradient(90deg, #244434, #c29b62, #892837);
+      z-index: 10;
     }
 
     .video-frame {
       width: 100%;
-      background: #000;
+      background: #faf5ef;
       line-height: 0;
+      position: relative;
+      overflow: hidden;
     }
 
     video {
       width: 100%;
       height: auto;
       display: block;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .audio-toggle-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(36, 68, 52, 0.85);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      z-index: 5;
+      transition: background 0.2s ease;
+    }
+
+    .audio-toggle-btn:hover {
+      background: rgba(36, 68, 52, 1);
     }
 
     .content {
@@ -349,25 +424,39 @@
 </head>
 <body>
 
-  <!-- Botanical Nature Opening Screen -->
+  <!-- Authentic Wedding Envelope Opening Screen -->
   <div id="welcomeOverlay">
-    <div class="nature-card">
-      <span class="leaf-decor top-left">🌿</span>
-      <span class="leaf-decor top-right">🌿</span>
-      <span class="leaf-decor bottom-left">🌿</span>
-      <span class="leaf-decor bottom-right">🌿</span>
-
-      <div class="invitation-badge">Wedding & Reception Invite</div>
-      <div class="botanical-glyph">❦ ❀ ❦</div>
-      <div class="envelope-title">Guru & Epsiba</div>
-      <div class="envelope-sub">Together with our families</div>
-
-      <div class="wax-seal-wrapper" onclick="openInvitation()">
-        <div class="wax-seal">
-          <div class="seal-monogram">G & E</div>
-          <div class="seal-subtext">Open</div>
+    <div class="envelope-pocket">
+      <!-- Letterhead details from reference -->
+      <div class="letterhead">
+        <div class="monogram-script">G & E</div>
+        <div class="date-badge">— 20 · NOV · 2026 —</div>
+        <div class="couple-title">
+          Guru
+          <span class="and-glyph">AND</span>
+          Epsiba
         </div>
-        <div class="tap-hint">Tap seal to open</div>
+      </div>
+
+      <!-- Pointed Envelope Flap -->
+      <div class="envelope-flap"></div>
+
+      <!-- Antique Gold Botanical Wax Seal Button -->
+      <div class="wax-seal-container" onclick="openInvitation()">
+        <div class="gold-wax-seal">
+          <div class="seal-branches">
+            <span class="seal-icon">🌿</span>
+            <span class="seal-open-text">Open</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Envelope Footer -->
+      <div class="envelope-footer">
+        <div class="invite-caption">
+          Invite you to celebrate<br />our wedding & reception
+        </div>
+        <div class="olive-branch-bottom">𐂂</div>
       </div>
     </div>
   </div>
@@ -375,10 +464,22 @@
   <!-- Main Invitation Card -->
   <main class="invite-card" id="inviteCard">
     <div class="video-frame">
-      <video id="inviteVideo" controls playsinline preload="auto">
+      <video 
+        id="inviteVideo" 
+        playsinline 
+        webkit-playsinline 
+        loop 
+        preload="auto"
+        disablePictureInPicture
+        disableremoteplayback
+      >
         <source src="invite.mp4" type="video/mp4" />
         Your browser does not support the video element.
       </video>
+
+      <button class="audio-toggle-btn" id="audioToggleBtn" onclick="toggleAudio(event)">
+        <span id="audioIcon">🔊</span> <span id="audioText">Mute</span>
+      </button>
     </div>
 
     <div class="content">
@@ -433,20 +534,41 @@
   </main>
 
   <script>
+    const video = document.getElementById('inviteVideo');
+    const audioBtn = document.getElementById('audioToggleBtn');
+    const audioIcon = document.getElementById('audioIcon');
+    const audioText = document.getElementById('audioText');
+
     function openInvitation() {
       const overlay = document.getElementById('welcomeOverlay');
       const card = document.getElementById('inviteCard');
-      const video = document.getElementById('inviteVideo');
 
       overlay.classList.add('hidden');
       card.classList.add('show');
 
       // Video autoplay trigger
       video.play().catch(err => {
-        console.log("Autoplay unmuted prevented:", err);
+        console.log("Audio autoplay restricted, falling back to muted:", err);
         video.muted = true;
+        updateAudioButtonUI();
         video.play();
       });
+    }
+
+    function toggleAudio(e) {
+      e.stopPropagation();
+      video.muted = !video.muted;
+      updateAudioButtonUI();
+    }
+
+    function updateAudioButtonUI() {
+      if (video.muted) {
+        audioIcon.innerText = "🔇";
+        audioText.innerText = "Unmute";
+      } else {
+        audioIcon.innerText = "🔊";
+        audioText.innerText = "Mute";
+      }
     }
 
     // Countdown logic to Nov 20, 2026
