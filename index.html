@@ -226,7 +226,6 @@
       transform: scale(1.08);
     }
 
-    /* Styled Gold Heart Icon */
     .medallion-heart-svg {
       width: 34px;
       height: 34px;
@@ -459,6 +458,11 @@
 </head>
 <body>
 
+  <!-- Background Music for Opening Screen -->
+  <audio id="frontAudio" loop preload="auto">
+    <source src="bg-music.mp3" type="audio/mpeg" />
+  </audio>
+
   <!-- Full-Screen Indian Wedding Envelope -->
   <div id="welcomeOverlay">
     <div class="envelope-pocket">
@@ -483,7 +487,7 @@
       <div class="envelope-flap"></div>
 
       <!-- Royal Medallion Open Button with Golden Sacred Heart -->
-      <div class="seal-tap-zone" onclick="openInvitation()">
+      <div class="seal-tap-zone" onclick="openInvitation(event)">
         <div class="royal-medallion">
           <!-- Perfectly Matched Gold Foil Heart -->
           <svg class="medallion-heart-svg" viewBox="0 0 32 32">
@@ -585,7 +589,24 @@
   </main>
 
   <script>
+    const frontAudio = document.getElementById('frontAudio');
     const video = document.getElementById('inviteVideo');
+
+    // Auto-play front background music on first user touch anywhere
+    function tryPlayFrontAudio() {
+      if (frontAudio && frontAudio.paused) {
+        frontAudio.play().catch(() => {});
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      frontAudio.volume = 0.8;
+      frontAudio.play().catch(() => {
+        // Fallback: Start audio on the very first touch/click anywhere on the screen
+        document.body.addEventListener('touchstart', tryPlayFrontAudio, { once: true });
+        document.body.addEventListener('click', tryPlayFrontAudio, { once: true });
+      });
+    });
 
     function triggerFlowerShower() {
       const petals = ['#d82643', '#ff758f', '#fff4f6', '#fca311', '#ffffff'];
@@ -629,8 +650,20 @@
       }, 360);
     }
 
-    function openInvitation() {
+    function openInvitation(event) {
+      if (event) event.stopPropagation();
+
       triggerFlowerShower();
+
+      // Smoothly fade out front music
+      let fadeAudio = setInterval(() => {
+        if (frontAudio.volume > 0.1) {
+          frontAudio.volume -= 0.2;
+        } else {
+          clearInterval(fadeAudio);
+          frontAudio.pause();
+        }
+      }, 50);
 
       const overlay = document.getElementById('welcomeOverlay');
       const card = document.getElementById('inviteCard');
@@ -639,10 +672,10 @@
         overlay.classList.add('hidden');
         card.classList.add('show');
 
-        // Play unmuted with audio
+        // Play wedding video unmuted with sound
         video.muted = false;
         video.play().catch(err => {
-          console.log("Audio autoplay restricted, falling back to muted:", err);
+          console.log("Audio autoplay restricted, fallback to muted:", err);
           video.muted = true;
           video.play();
         });
