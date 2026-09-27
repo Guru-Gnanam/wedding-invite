@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding Invitation | Gurunathan & Mariya Epsiba</title>
+  <title>Wedding & Reception Invite | Guru & Epsiba</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -11,11 +11,13 @@
     :root {
       --primary-wine: #892837;
       --secondary-rose: #a85868;
+      --forest-green: #244434;
+      --sage-green: #5a7d69;
+      --light-sage: #eaf1ec;
       --antique-gold: #c29b62;
-      --gold-foil: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa7c11 100%);
       --bg-cream: #faf5ef;
       --card-bg: rgba(255, 252, 248, 0.96);
-      --text-dark: #3b2c2d;
+      --text-dark: #29332d;
     }
 
     * {
@@ -25,7 +27,7 @@
     }
 
     body {
-      background: radial-gradient(circle at top, #fdf6f0 0%, #ecdcd0 100%);
+      background: radial-gradient(circle at top, #f3f7f4 0%, #e2ece5 100%);
       font-family: 'Montserrat', sans-serif;
       color: var(--text-dark);
       min-height: 100vh;
@@ -36,14 +38,14 @@
       overflow-x: hidden;
     }
 
-    /* --- WEDDING ENVELOPE OPENING SCREEN --- */
+    /* --- NATURE / BOTANICAL OPENING SCREEN --- */
     #welcomeOverlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle at center, #2e1a20 0%, #15090c 100%);
+      background: radial-gradient(circle at center, #1b3528 0%, #0d1e16 100%);
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -59,44 +61,45 @@
       pointer-events: none;
     }
 
-    /* Envelope Presentation */
-    .royal-envelope {
+    .nature-card {
       width: 100%;
       max-width: 360px;
-      background: #fdfaf6;
-      border: 2px solid #dfcbb8;
-      border-radius: 16px;
+      background: #fbfdfb;
+      border: 1.5px solid #c9d8ce;
+      border-radius: 20px;
       padding: 38px 24px 34px;
       text-align: center;
       position: relative;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 8px rgba(194, 155, 98, 0.15);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 0 7px rgba(90, 125, 105, 0.2);
     }
 
-    /* Ornate Gold Corner Accents */
-    .corner-decor {
+    /* Botanical Corner Leaf Accents */
+    .leaf-decor {
       position: absolute;
-      width: 28px;
-      height: 28px;
-      border: 2px solid var(--antique-gold);
+      font-size: 1.3rem;
+      color: var(--sage-green);
+      opacity: 0.7;
     }
-    .top-left { top: 10px; left: 10px; border-right: none; border-bottom: none; }
-    .top-right { top: 10px; right: 10px; border-left: none; border-bottom: none; }
-    .bottom-left { bottom: 10px; left: 10px; border-right: none; border-top: none; }
-    .bottom-right { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+    .top-left { top: 12px; left: 14px; transform: rotate(-45deg); }
+    .top-right { top: 12px; right: 14px; transform: rotate(45deg); }
+    .bottom-left { bottom: 12px; left: 14px; transform: rotate(-135deg); }
+    .bottom-right { bottom: 12px; right: 14px; transform: rotate(135deg); }
 
-    .invitation-to {
+    .invitation-badge {
       font-family: 'Cinzel', serif;
       font-size: 0.8rem;
-      letter-spacing: 3px;
-      color: var(--antique-gold);
+      letter-spacing: 2.5px;
+      color: var(--forest-green);
       text-transform: uppercase;
-      margin-bottom: 6px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
-    .floral-emblem {
-      color: var(--secondary-rose);
-      font-size: 1.2rem;
-      margin-bottom: 8px;
+    .botanical-glyph {
+      color: var(--antique-gold);
+      font-size: 1.25rem;
+      letter-spacing: 4px;
+      margin-bottom: 6px;
     }
 
     .envelope-title {
@@ -104,18 +107,18 @@
       font-size: 2.9rem;
       color: var(--primary-wine);
       line-height: 1.2;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .envelope-sub {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      color: #7a6366;
-      font-size: 1.1rem;
+      color: var(--sage-green);
+      font-size: 1.15rem;
       margin-bottom: 26px;
     }
 
-    /* Wax Seal Button */
+    /* Emerald Wax Seal Button */
     .wax-seal-wrapper {
       position: relative;
       display: inline-block;
@@ -123,19 +126,19 @@
     }
 
     .wax-seal {
-      width: 82px;
-      height: 82px;
-      background: radial-gradient(circle at 35% 35%, #a83648 0%, #6e1c2a 75%, #4a0e1a 100%);
+      width: 84px;
+      height: 84px;
+      background: radial-gradient(circle at 35% 35%, #2f5f47 0%, #1a3829 70%, #11261b 100%);
       border-radius: 50%;
-      border: 3px dashed rgba(243, 229, 171, 0.6);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.25);
+      border: 3px dashed rgba(212, 175, 55, 0.65);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.25);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       margin: 0 auto;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulseGlow 2.5s infinite;
+      transition: transform 0.3s ease;
+      animation: emeraldPulse 2.6s infinite;
     }
 
     .wax-seal:hover {
@@ -144,33 +147,33 @@
 
     .seal-monogram {
       font-family: 'Alex Brush', cursive;
-      font-size: 2rem;
-      color: #f7e6ca;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      font-size: 2.1rem;
+      color: #f5eedf;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
       line-height: 1;
     }
 
     .seal-subtext {
       font-family: 'Cinzel', serif;
       font-size: 0.55rem;
-      letter-spacing: 1px;
-      color: #f7e6ca;
+      letter-spacing: 1.5px;
+      color: #dfd2b9;
       text-transform: uppercase;
       margin-top: 2px;
     }
 
     .tap-hint {
       margin-top: 14px;
-      font-size: 0.78rem;
-      letter-spacing: 1.5px;
+      font-size: 0.76rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--antique-gold);
-      font-weight: 500;
+      color: var(--forest-green);
+      font-weight: 600;
     }
 
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 0 rgba(194, 155, 98, 0.4); }
-      50% { box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 10px rgba(194, 155, 98, 0); }
+    @keyframes emeraldPulse {
+      0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 0 rgba(47, 95, 71, 0.5); }
+      50% { box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 10px rgba(47, 95, 71, 0); }
     }
 
     /* --- MAIN INVITATION CARD (POP-OUT) --- */
@@ -178,9 +181,9 @@
       max-width: 440px;
       width: 100%;
       background: var(--card-bg);
-      border: 1px solid #ebdcd0;
+      border: 1px solid #d4e0d7;
       border-radius: 28px;
-      box-shadow: 0 16px 40px rgba(137, 40, 55, 0.08);
+      box-shadow: 0 16px 40px rgba(36, 68, 52, 0.09);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -196,6 +199,7 @@
       transform: translateY(0) scale(1);
     }
 
+    /* Decorative Green & Wine Ribbon */
     .invite-card::before {
       content: "";
       position: absolute;
@@ -203,7 +207,7 @@
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, #c29b62, #892837, #c29b62);
+      background: linear-gradient(90deg, #244434, #c29b62, #892837);
     }
 
     .video-frame {
@@ -242,8 +246,8 @@
     /* --- COUNTDOWN TIMER --- */
     .timer-container {
       margin-bottom: 22px;
-      background: #fff;
-      border: 1px solid #ebdcd0;
+      background: var(--light-sage);
+      border: 1px solid #c8d8cd;
       border-radius: 16px;
       padding: 14px 10px;
     }
@@ -253,7 +257,7 @@
       font-size: 0.95rem;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      color: var(--antique-gold);
+      color: var(--forest-green);
       font-weight: 700;
       margin-bottom: 8px;
     }
@@ -274,14 +278,15 @@
       font-family: 'Montserrat', sans-serif;
       font-size: 1.35rem;
       font-weight: 600;
-      color: var(--primary-wine);
+      color: var(--forest-green);
     }
 
     .time-unit {
       font-size: 0.68rem;
       text-transform: uppercase;
-      color: #888;
+      color: var(--sage-green);
       letter-spacing: 0.5px;
+      font-weight: 500;
     }
 
     /* --- EVENT DETAILS --- */
@@ -291,7 +296,7 @@
       border-radius: 18px;
       padding: 16px 14px;
       margin-bottom: 14px;
-      box-shadow: 0 4px 12px rgba(194, 155, 98, 0.07);
+      box-shadow: 0 4px 12px rgba(90, 125, 105, 0.08);
     }
 
     .event-type {
@@ -307,13 +312,13 @@
     .event-date {
       font-size: 0.9rem;
       font-weight: 500;
-      color: #3b2c2d;
+      color: #29332d;
       margin-bottom: 4px;
     }
 
     .event-venue {
       font-size: 0.86rem;
-      color: #6d5b5d;
+      color: #55635a;
       margin-bottom: 12px;
     }
 
@@ -321,7 +326,7 @@
       display: inline-flex;
       align-items: center;
       text-decoration: none;
-      background: linear-gradient(135deg, #892837 0%, #aa3d50 100%);
+      background: linear-gradient(135deg, #244434 0%, #3e6d54 100%);
       color: #ffffff;
       font-size: 0.8rem;
       padding: 7px 20px;
@@ -344,16 +349,16 @@
 </head>
 <body>
 
-  <!-- Royal Envelope Cover Screen -->
+  <!-- Botanical Nature Opening Screen -->
   <div id="welcomeOverlay">
-    <div class="royal-envelope">
-      <div class="corner-decor top-left"></div>
-      <div class="corner-decor top-right"></div>
-      <div class="corner-decor bottom-left"></div>
-      <div class="corner-decor bottom-right"></div>
+    <div class="nature-card">
+      <span class="leaf-decor top-left">🌿</span>
+      <span class="leaf-decor top-right">🌿</span>
+      <span class="leaf-decor bottom-left">🌿</span>
+      <span class="leaf-decor bottom-right">🌿</span>
 
-      <div class="invitation-to">Royal Wedding Invitation</div>
-      <div class="floral-emblem">❦ ✦ ❦</div>
+      <div class="invitation-badge">Wedding & Reception Invite</div>
+      <div class="botanical-glyph">❦ ❀ ❦</div>
       <div class="envelope-title">Guru & Epsiba</div>
       <div class="envelope-sub">Together with our families</div>
 
@@ -367,7 +372,7 @@
     </div>
   </div>
 
-  <!-- Main Card with Pop-Out Animation -->
+  <!-- Main Invitation Card -->
   <main class="invite-card" id="inviteCard">
     <div class="video-frame">
       <video id="inviteVideo" controls playsinline preload="auto">
@@ -444,7 +449,7 @@
       });
     }
 
-    // Countdown logic
+    // Countdown logic to Nov 20, 2026
     const weddingDate = new Date("November 20, 2026 09:00:00").getTime();
 
     function updateCountdown() {
