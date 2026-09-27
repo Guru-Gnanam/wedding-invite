@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding & Reception Invite | Guru & Epsiba</title>
+  <title>Guru & Epsiba | Wedding & Reception Invite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Lightweight Canvas Confetti for Festival Flower Petals Burst -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <style>
     :root {
       --primary-wine: #892837;
@@ -37,20 +39,20 @@
       overflow-x: hidden;
     }
 
-    /* --- REALISTIC ENVELOPE OPENING SCREEN --- */
+    /* --- REALISTIC ENVELOPE OPENING SCREEN (EXACT PHOTO REPLICA) --- */
     #welcomeOverlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: #141b17;
+      background: #111413;
       z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 16px;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
     }
 
     #welcomeOverlay.hidden {
@@ -59,26 +61,27 @@
       pointer-events: none;
     }
 
-    /* Textured Vertical Envelope Pocket */
     .envelope-pocket {
       width: 100%;
       max-width: 375px;
       height: 600px;
-      background: #fdfcf9;
-      background-image: radial-gradient(#ece6dc 0.7px, transparent 0.7px);
-      background-size: 14px 14px;
-      border-radius: 6px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(210, 195, 175, 0.5);
+      background: #fdfaf6;
+      background-image: 
+        radial-gradient(#e9e0d4 0.75px, transparent 0.75px),
+        linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(246, 238, 227, 0.9));
+      background-size: 14px 14px, 100% 100%;
+      border-radius: 4px;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(216, 203, 187, 0.6);
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 38px 20px 24px;
+      padding: 40px 20px 28px;
       overflow: hidden;
     }
 
-    /* Top Letterhead Details */
+    /* Top Letterhead Typography matching photo */
     .letterhead {
       text-align: center;
       z-index: 2;
@@ -86,8 +89,8 @@
 
     .monogram-script {
       font-family: 'Alex Brush', cursive;
-      font-size: 2.8rem;
-      color: #6d6257;
+      font-size: 3rem;
+      color: #7a6e63;
       line-height: 1;
       margin-bottom: 12px;
       letter-spacing: 2px;
@@ -95,49 +98,49 @@
 
     .date-badge {
       font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      letter-spacing: 3.5px;
-      color: #8c8072;
+      font-size: 0.76rem;
+      letter-spacing: 4px;
+      color: #928475;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .couple-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       font-weight: 500;
-      color: #2e2825;
-      letter-spacing: 1px;
-      line-height: 1.1;
+      color: #2b2522;
+      letter-spacing: 0.5px;
+      line-height: 1.15;
     }
 
     .and-glyph {
       display: block;
       font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      color: #9c8e7e;
+      font-size: 0.62rem;
+      letter-spacing: 3px;
+      color: #a49687;
       margin: 4px 0;
     }
 
-    /* Pointed Envelope Flap */
+    /* Crisp Pointed Triangular Flap from photo */
     .envelope-flap {
       position: absolute;
-      top: 240px;
+      top: 245px;
       left: 0;
       width: 100%;
-      height: 120px;
-      background: #f7f3ec;
+      height: 125px;
+      background: #f7f1e7;
       border-top: 1px solid #ebdcd0;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
       z-index: 3;
     }
 
-    /* Antique Gold Botanical Wax Seal Button */
+    /* Antique Embossed Metallic Gold Wax Seal */
     .wax-seal-container {
       position: absolute;
-      top: 310px;
+      top: 312px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 5;
@@ -148,41 +151,41 @@
     }
 
     .gold-wax-seal {
-      width: 86px;
-      height: 86px;
-      background: radial-gradient(circle at 35% 35%, #e2be79 0%, #aa853c 60%, #76561f 100%);
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle at 35% 35%, #ebca8b 0%, #ba9243 55%, #7e5e22 100%);
       border-radius: 50%;
       box-shadow: 
-        0 8px 22px rgba(0, 0, 0, 0.35),
-        inset 0 3px 5px rgba(255, 255, 255, 0.4),
-        inset 0 -3px 5px rgba(0, 0, 0, 0.4);
+        0 10px 24px rgba(0, 0, 0, 0.38),
+        inset 0 3px 6px rgba(255, 255, 255, 0.5),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.45);
       display: flex;
       justify-content: center;
       align-items: center;
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 3px solid #8e6c2e;
+      border: 3.5px solid #94712c;
+      animation: gentlePulse 2.8s infinite;
     }
 
     .gold-wax-seal:hover {
       transform: scale(1.08);
     }
 
-    /* Embedded Botanical Laurel inside seal */
     .seal-branches {
-      width: 54px;
-      height: 54px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
-      border: 1.5px dashed rgba(255, 246, 222, 0.7);
+      border: 1.5px dashed rgba(255, 248, 230, 0.7);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: #3f2e0e;
-      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+      color: #3f2d0a;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
     }
 
     .seal-icon {
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       line-height: 1;
     }
 
@@ -196,7 +199,12 @@
       text-transform: uppercase;
     }
 
-    /* Bottom Invitation Text & Foliage Motif */
+    @keyframes gentlePulse {
+      0%, 100% { box-shadow: 0 10px 24px rgba(0,0,0,0.38), 0 0 0 0 rgba(186, 146, 67, 0.4); }
+      50% { box-shadow: 0 10px 24px rgba(0,0,0,0.38), 0 0 0 10px rgba(186, 146, 67, 0); }
+    }
+
+    /* Envelope Bottom Text & Botanical Branch */
     .envelope-footer {
       text-align: center;
       z-index: 2;
@@ -205,22 +213,23 @@
 
     .invite-caption {
       font-family: 'Cinzel', serif;
-      font-size: 0.62rem;
-      letter-spacing: 2.5px;
-      color: #8c8072;
+      font-size: 0.63rem;
+      letter-spacing: 2.8px;
+      color: #928475;
       text-transform: uppercase;
       line-height: 1.6;
     }
 
-    .olive-branch-bottom {
-      font-size: 1.6rem;
-      color: #8c8072;
-      opacity: 0.85;
-      margin-top: 4px;
-      display: block;
+    /* Detailed Olive/Laurel branch vector */
+    .botanical-branch-svg {
+      width: 52px;
+      height: auto;
+      margin-top: 6px;
+      opacity: 0.75;
+      fill: #857667;
     }
 
-    /* --- MAIN INVITATION CARD (POP-OUT) --- */
+    /* --- MAIN INVITATION CARD (SLIDE / POP-OUT) --- */
     .invite-card {
       max-width: 440px;
       width: 100%;
@@ -424,10 +433,9 @@
 </head>
 <body>
 
-  <!-- Authentic Wedding Envelope Opening Screen -->
+  <!-- Authentic Wedding Envelope Opening Screen (Matching Screenshot) -->
   <div id="welcomeOverlay">
     <div class="envelope-pocket">
-      <!-- Letterhead details from reference -->
       <div class="letterhead">
         <div class="monogram-script">G & E</div>
         <div class="date-badge">— 20 · NOV · 2026 —</div>
@@ -451,12 +459,20 @@
         </div>
       </div>
 
-      <!-- Envelope Footer -->
+      <!-- Envelope Bottom Text & Botanical Branch -->
       <div class="envelope-footer">
         <div class="invite-caption">
           Invite you to celebrate<br />our wedding & reception
         </div>
-        <div class="olive-branch-bottom">𐂂</div>
+        <svg class="botanical-branch-svg" viewBox="0 0 100 40">
+          <path d="M50 35 C48 25, 45 15, 30 10 M35 22 C25 20, 18 14, 15 8 M38 18 C30 14, 25 7, 22 2 M50 35 C52 25, 55 15, 70 10 M65 22 C75 20, 82 14, 85 8 M62 18 C70 14, 75 7, 78 2" stroke="#857667" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="30" cy="10" r="3" fill="#857667" />
+          <circle cx="15" cy="8" r="2.5" fill="#857667" />
+          <circle cx="22" cy="2" r="2" fill="#857667" />
+          <circle cx="70" cy="10" r="3" fill="#857667" />
+          <circle cx="85" cy="8" r="2.5" fill="#857667" />
+          <circle cx="78" cy="2" r="2" fill="#857667" />
+        </svg>
       </div>
     </div>
   </div>
@@ -539,20 +555,72 @@
     const audioIcon = document.getElementById('audioIcon');
     const audioText = document.getElementById('audioText');
 
+    // Festival Flower Petal Confetti Burst Function
+    function triggerFlowerShower() {
+      const flowerColors = ['#d84a62', '#ff8fa3', '#fff0f3', '#f4d06f', '#ffffff']; // Rose, pink petal, jasmine white & marigold gold
+
+      // Central burst
+      confetti({
+        particleCount: 65,
+        spread: 100,
+        origin: { y: 0.55 },
+        colors: flowerColors,
+        scalar: 1.25,
+        shapes: ['circle'],
+        ticks: 200,
+        gravity: 0.7,
+        drift: 0.1
+      });
+
+      // Left fountain
+      setTimeout(() => {
+        confetti({
+          particleCount: 45,
+          angle: 60,
+          spread: 70,
+          origin: { x: 0, y: 0.7 },
+          colors: flowerColors,
+          scalar: 1.3,
+          shapes: ['circle'],
+          gravity: 0.8
+        });
+      }, 200);
+
+      // Right fountain
+      setTimeout(() => {
+        confetti({
+          particleCount: 45,
+          angle: 120,
+          spread: 70,
+          origin: { x: 1, y: 0.7 },
+          colors: flowerColors,
+          scalar: 1.3,
+          shapes: ['circle'],
+          gravity: 0.8
+        });
+      }, 400);
+    }
+
     function openInvitation() {
+      // 1. Launch Festival Flower Shower
+      triggerFlowerShower();
+
       const overlay = document.getElementById('welcomeOverlay');
       const card = document.getElementById('inviteCard');
 
-      overlay.classList.add('hidden');
-      card.classList.add('show');
+      // 2. Transition Envelope to Main Card
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        card.classList.add('show');
 
-      // Video autoplay trigger
-      video.play().catch(err => {
-        console.log("Audio autoplay restricted, falling back to muted:", err);
-        video.muted = true;
-        updateAudioButtonUI();
-        video.play();
-      });
+        // Autoplay video
+        video.play().catch(err => {
+          console.log("Audio autoplay restricted, playing muted:", err);
+          video.muted = true;
+          updateAudioButtonUI();
+          video.play();
+        });
+      }, 350);
     }
 
     function toggleAudio(e) {
