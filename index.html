@@ -95,7 +95,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 26px 18px 22px;
+      padding: 28px 18px 22px;
       overflow: hidden;
     }
 
@@ -107,57 +107,12 @@
       pointer-events: none;
     }
 
-    /* Cute Floating Music Pill Button */
-    .front-music-pill {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      z-index: 10;
-      background: rgba(137, 40, 55, 0.08);
-      border: 1px solid rgba(198, 146, 59, 0.6);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      padding: 6px 12px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      transition: all 0.25s ease;
-    }
-
-    .front-music-pill:hover {
-      background: rgba(137, 40, 55, 0.15);
-      transform: scale(1.04);
-    }
-
-    .music-note-icon {
-      font-size: 0.82rem;
-      animation: noteBob 2s infinite ease-in-out;
-    }
-
-    .front-music-text {
-      font-family: 'Cinzel', serif;
-      font-size: 0.58rem;
-      letter-spacing: 1.5px;
-      color: var(--primary-wine);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    @keyframes noteBob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-2px); }
-    }
-
     .letterhead {
       text-align: center;
       z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 10px;
     }
 
     .hands-circle-frame {
@@ -285,11 +240,12 @@
 
     .medallion-text {
       font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 2.5px;
+      font-size: 0.62rem;
+      letter-spacing: 2px;
       color: #faebd7;
       font-weight: 700;
       text-transform: uppercase;
+      transition: color 0.3s ease;
     }
 
     @keyframes divineGlow {
@@ -513,12 +469,6 @@
     <div class="envelope-pocket">
       <div class="ornate-border"></div>
 
-      <!-- Cute Front Music Toggle Pill -->
-      <button class="front-music-pill" id="musicPillBtn" onclick="toggleFrontAudio(event)">
-        <span class="music-note-icon" id="musicNoteIcon">🎵</span>
-        <span class="front-music-text" id="musicPillText">Music</span>
-      </button>
-
       <div class="letterhead">
         <!-- Couple Holding Hands Framed Image -->
         <div class="hands-circle-frame">
@@ -537,10 +487,11 @@
       <!-- Pointed Triangular Flap -->
       <div class="envelope-flap"></div>
 
-      <!-- Royal Medallion Open Button with Golden Sacred Heart -->
-      <div class="seal-tap-zone" onclick="openInvitation(event)">
-        <div class="royal-medallion">
-          <svg class="medallion-heart-svg" viewBox="0 0 32 32">
+      <!-- Royal Medallion Two-Step Touch Button -->
+      <div class="seal-tap-zone" onclick="handleMedallionTap(event)">
+        <div class="royal-medallion" id="medallionBtn">
+          <!-- Gold Foil Heart -->
+          <svg class="medallion-heart-svg" id="medallionIcon" viewBox="0 0 32 32">
             <defs>
               <linearGradient id="heartGold" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
                 <stop stop-color="#fff6db"/>
@@ -555,7 +506,7 @@
               stroke-width="1"
             />
           </svg>
-          <div class="medallion-text">Open</div>
+          <div class="medallion-text" id="medallionLabel">Open</div>
         </div>
       </div>
 
@@ -641,21 +592,30 @@
   <script>
     const frontAudio = document.getElementById('frontAudio');
     const video = document.getElementById('inviteVideo');
-    const musicNoteIcon = document.getElementById('musicNoteIcon');
-    const musicPillText = document.getElementById('musicPillText');
+    const medallionLabel = document.getElementById('medallionLabel');
+    const medallionIcon = document.getElementById('medallionIcon');
 
-    function toggleFrontAudio(e) {
-      if (e) e.stopPropagation();
+    let tapCount = 0;
 
-      if (frontAudio.paused) {
-        frontAudio.play().then(() => {
-          musicNoteIcon.innerText = "🎶";
-          musicPillText.innerText = "Pause";
-        }).catch(err => console.log("Audio playback blocked:", err));
+    // Two-step handler: 1st tap plays music; 2nd tap opens envelope
+    function handleMedallionTap(event) {
+      if (event) event.stopPropagation();
+      tapCount++;
+
+      if (tapCount === 1) {
+        // Step 1: Start music with audio permission
+        frontAudio.volume = 0.85;
+        frontAudio.play().catch(err => {
+          console.log("Audio play error:", err);
+        });
+
+        // Update button visual state
+        medallionLabel.innerText = "Open";
+        medallionLabel.style.color = "#f5d77f";
+        medallionIcon.style.transform = "scale(1.15)";
       } else {
-        frontAudio.pause();
-        musicNoteIcon.innerText = "🎵";
-        musicPillText.innerText = "Music";
+        // Step 2: Open invitation & trigger petals
+        executeOpenInvitation();
       }
     }
 
@@ -701,12 +661,10 @@
       }, 360);
     }
 
-    function openInvitation(event) {
-      if (event) event.stopPropagation();
-
+    function executeOpenInvitation() {
       triggerFlowerShower();
 
-      // Smoothly fade out front music if playing
+      // Smoothly fade out front music
       if (!frontAudio.paused) {
         let fadeAudio = setInterval(() => {
           if (frontAudio.volume > 0.1) {
@@ -728,7 +686,7 @@
         // Play wedding video unmuted with sound
         video.muted = false;
         video.play().catch(err => {
-          console.log("Audio autoplay restricted, fallback to muted:", err);
+          console.log("Audio autoplay restricted, falling back to muted:", err);
           video.muted = true;
           video.play();
         });
