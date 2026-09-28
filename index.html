@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Guru & Epsiba | Wedding & Reception Invite</title>
+  <title>Gurunathan G & Mariya Epsiba S | Wedding Invite</title>
 
   <!-- Privacy Tag: Prevents search engines from showing your invite in public search results -->
   <meta name="robots" content="noindex, nofollow" />
 
-  <!-- Open Graph Tags: Creates a beautiful image preview when sharing on WhatsApp, Teams, etc. -->
-  <meta property="og:title" content="Guru & Epsiba are getting married!" />
-  <meta property="og:description" content="We warmly seek your presence and blessings. Click for details!" />
-  <meta property="og:image" content="https://guru-gnanam.github.io/wedding-invite/holding-hands.jpg" />
+  <!-- Open Graph Tags for WhatsApp previews -->
+  <meta property="og:title" content="Gurunathan & Mariya are getting married!" />
+  <meta property="og:description" content="We warmly seek your presence and blessings. Click to view invitation!" />
+  <meta property="og:image" content="https://guru-gnanam.github.io/wedding-invite/front-bg.png" />
   <meta property="og:url" content="https://guru-gnanam.github.io/wedding-invite/" />
   <meta property="og:type" content="website" />
 
@@ -56,7 +56,7 @@
       min-height: 100dvh;
     }
 
-    /* --- TRUE FULL-SCREEN OPENING OVERLAY --- */
+    /* --- FULL SCREEN OPENING OVERLAY (EXACT IMAGE REPLICA) --- */
     #welcomeOverlay {
       position: fixed;
       inset: 0;
@@ -67,7 +67,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 12px;
+      padding: 10px;
       margin: 0;
       transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.85s;
     }
@@ -78,111 +78,29 @@
       pointer-events: none;
     }
 
-    .envelope-pocket {
+    /* Envelope displaying the exact original wedding poster */
+    .envelope-poster-card {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       height: 94dvh;
-      max-height: 680px;
-      background: #fdfbf7;
-      background-image: 
-        radial-gradient(#ebd9c8 0.8px, transparent 0.8px),
-        linear-gradient(to bottom, #ffffff 0%, #faf1e3 100%);
-      background-size: 14px 14px, 100% 100%;
-      border-radius: 12px;
+      max-height: 720px;
+      background: #fdfaf6 url('front-bg.png') no-repeat center center;
+      background-size: cover;
+      border-radius: 18px;
       box-shadow: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(198, 146, 59, 0.45);
       position: relative;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 28px 18px 22px;
       overflow: hidden;
     }
 
-    .ornate-border {
-      position: absolute;
-      inset: 8px;
-      border: 1px solid rgba(198, 146, 59, 0.35);
-      border-radius: 8px;
-      pointer-events: none;
-    }
-
-    .letterhead {
-      text-align: center;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .hands-circle-frame {
-      width: 86px;
-      height: 86px;
-      border-radius: 50%;
-      border: 2px solid var(--sacred-gold);
-      padding: 2px;
-      margin-bottom: 8px;
-      box-shadow: 0 4px 14px rgba(198, 146, 59, 0.25);
-      background: #fff;
-      overflow: hidden;
-    }
-
-    .hands-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-    }
-
-    .date-badge {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      letter-spacing: 4px;
-      color: var(--sacred-gold);
-      text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .couple-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.3rem;
-      font-weight: 600;
-      color: var(--deep-crimson);
-      letter-spacing: 0.5px;
-      line-height: 1.1;
-    }
-
-    .and-glyph {
-      display: block;
-      font-family: 'Cinzel', serif;
-      font-size: 0.62rem;
-      letter-spacing: 3px;
-      color: var(--sacred-gold);
-      margin: 3px 0;
-    }
-
-    /* Pointed Envelope Flap */
-    .envelope-flap {
-      position: absolute;
-      top: 45%;
-      left: 0;
-      width: 100%;
-      height: 120px;
-      background: #f7ebe0;
-      border-top: 1.5px solid #ecd3bd;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-      z-index: 3;
-    }
-
-    /* Royal Medallion Open Button */
+    /* Tap Zone placed directly over the image's "WELCOME" wax seal */
     .seal-tap-zone {
       position: absolute;
-      top: 52%;
+      top: 54.5%;
       left: 50%;
-      transform: translate(-50%, -30%);
+      transform: translate(-50%, -50%);
       z-index: 5;
       cursor: pointer;
       display: flex;
@@ -190,55 +108,39 @@
       align-items: center;
     }
 
-    .royal-medallion {
-      width: 96px;
-      height: 96px;
-      background: radial-gradient(circle at 35% 35%, #9b1c2e 0%, #6b1422 65%, #420811 100%);
+    /* Realistic Red-Crimson Wax Seal matching the image */
+    .crimson-wax-seal {
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle at 35% 35%, #9b1c2e 0%, #761421 65%, #460912 100%);
       border-radius: 50%;
-      border: 3.5px solid #d4af37;
+      border: 3px solid #d4af37;
       box-shadow: 
-        0 10px 28px rgba(0, 0, 0, 0.45),
-        inset 0 2px 6px rgba(255, 255, 255, 0.4),
-        0 0 0 4px rgba(212, 175, 55, 0.25);
+        0 10px 28px rgba(0, 0, 0, 0.5),
+        inset 0 2px 6px rgba(255, 255, 255, 0.45),
+        0 0 0 4px rgba(212, 175, 55, 0.3);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: divineGlow 2.5s infinite;
+      animation: sealPulse 2.5s infinite;
       position: relative;
-      overflow: hidden;
     }
 
-    .royal-medallion::after {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(60deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
-      transform: rotate(25deg);
-      animation: sweepShine 3.5s infinite;
-    }
-
-    .royal-medallion:hover {
+    .crimson-wax-seal:hover {
       transform: scale(1.08);
     }
 
-    .medallion-heart-svg {
-      width: 34px;
-      height: 34px;
-      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    .seal-heart-svg {
+      width: 26px;
+      height: 26px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
       margin-bottom: 2px;
       transition: transform 0.25s ease;
     }
 
-    .royal-medallion:hover .medallion-heart-svg {
-      transform: scale(1.12);
-    }
-
-    .medallion-text {
+    .seal-text {
       font-family: 'Cinzel', serif;
       font-size: 0.62rem;
       letter-spacing: 2px;
@@ -248,38 +150,12 @@
       transition: color 0.3s ease;
     }
 
-    @keyframes divineGlow {
-      0%, 100% { box-shadow: 0 10px 28px rgba(0,0,0,0.45), 0 0 0 4px rgba(212, 175, 55, 0.25); }
-      50% { box-shadow: 0 10px 30px rgba(155, 28, 46, 0.6), 0 0 0 10px rgba(212, 175, 55, 0); }
+    @keyframes sealPulse {
+      0%, 100% { box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 4px rgba(212, 175, 55, 0.3); }
+      50% { box-shadow: 0 10px 30px rgba(155, 28, 46, 0.7), 0 0 0 10px rgba(212, 175, 55, 0); }
     }
 
-    @keyframes sweepShine {
-      0% { transform: translateX(-100%) rotate(25deg); }
-      100% { transform: translateX(100%) rotate(25deg); }
-    }
-
-    .envelope-footer {
-      text-align: center;
-      z-index: 2;
-    }
-
-    .invite-caption {
-      font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 3px;
-      color: #8c7864;
-      text-transform: uppercase;
-      line-height: 1.6;
-    }
-
-    .sacred-knot-footer {
-      font-size: 1.3rem;
-      color: var(--sacred-gold);
-      margin-top: 4px;
-      letter-spacing: 5px;
-    }
-
-    /* --- MAIN INVITATION CARD --- */
+    /* --- MAIN INVITATION CARD (POPS OUT) --- */
     .invite-card {
       max-width: 440px;
       width: 100%;
@@ -464,34 +340,15 @@
     <source src="bg-music.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Full-Screen Indian Wedding Envelope -->
+  <!-- Full-Screen Wedding Poster Overlay -->
   <div id="welcomeOverlay">
-    <div class="envelope-pocket">
-      <div class="ornate-border"></div>
-
-      <div class="letterhead">
-        <!-- Couple Holding Hands Framed Image -->
-        <div class="hands-circle-frame">
-          <img src="holding-hands.jpg" alt="Holding Hands" class="hands-img" />
-        </div>
-
-        <div class="date-badge">— 20 · NOV · 2026 —</div>
-        
-        <div class="couple-title">
-          Guru
-          <span class="and-glyph">IS TYING THE KNOT WITH</span>
-          Epsiba
-        </div>
-      </div>
-
-      <!-- Pointed Triangular Flap -->
-      <div class="envelope-flap"></div>
-
-      <!-- Royal Medallion Two-Step Touch Button -->
+    <div class="envelope-poster-card">
+      
+      <!-- Interactive Two-Step Touch Seal -->
       <div class="seal-tap-zone" onclick="handleMedallionTap(event)">
-        <div class="royal-medallion" id="medallionBtn">
-          <!-- Gold Foil Heart -->
-          <svg class="medallion-heart-svg" id="medallionIcon" viewBox="0 0 32 32">
+        <div class="crimson-wax-seal" id="sealBtn">
+          <!-- Gold Heart Icon -->
+          <svg class="seal-heart-svg" id="sealIcon" viewBox="0 0 32 32">
             <defs>
               <linearGradient id="heartGold" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
                 <stop stop-color="#fff6db"/>
@@ -506,17 +363,10 @@
               stroke-width="1"
             />
           </svg>
-          <div class="medallion-text" id="medallionLabel">Open</div>
+          <div class="seal-text" id="sealLabel">WELCOME</div>
         </div>
       </div>
 
-      <!-- Envelope Footer -->
-      <div class="envelope-footer">
-        <div class="invite-caption">
-          Wedding & Reception Invite
-        </div>
-        <div class="sacred-knot-footer">❦ 𑁍 ❦</div>
-      </div>
     </div>
   </div>
 
@@ -592,27 +442,27 @@
   <script>
     const frontAudio = document.getElementById('frontAudio');
     const video = document.getElementById('inviteVideo');
-    const medallionLabel = document.getElementById('medallionLabel');
-    const medallionIcon = document.getElementById('medallionIcon');
+    const sealLabel = document.getElementById('sealLabel');
+    const sealIcon = document.getElementById('sealIcon');
 
     let tapCount = 0;
 
-    // Two-step handler: 1st tap plays music; 2nd tap opens envelope
+    // Two-step handler: 1st tap plays music & turns to OPEN; 2nd tap opens envelope
     function handleMedallionTap(event) {
       if (event) event.stopPropagation();
       tapCount++;
 
       if (tapCount === 1) {
-        // Step 1: Start music with audio permission
+        // Step 1: Start music on user interaction
         frontAudio.volume = 0.85;
         frontAudio.play().catch(err => {
           console.log("Audio play error:", err);
         });
 
-        // Update button visual state
-        medallionLabel.innerText = "Open";
-        medallionLabel.style.color = "#f5d77f";
-        medallionIcon.style.transform = "scale(1.15)";
+        // Update button visual state to indicate it can now be opened
+        sealLabel.innerText = "OPEN";
+        sealLabel.style.color = "#f5d77f";
+        sealIcon.style.transform = "scale(1.2)";
       } else {
         // Step 2: Open invitation & trigger petals
         executeOpenInvitation();
