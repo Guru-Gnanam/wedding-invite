@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Gurunathan G & Mariya Epsiba S | Wedding Invite</title>
 
-  <!-- Privacy Tag: Prevents search engines from showing your invite in public search results -->
+  <!-- Privacy Tag -->
   <meta name="robots" content="noindex, nofollow" />
 
-  <!-- Open Graph Tags for WhatsApp previews -->
+  <!-- Open Graph Tags -->
   <meta property="og:title" content="Gurunathan & Mariya are getting married!" />
   <meta property="og:description" content="We warmly seek your presence and blessings. Click to view invitation!" />
   <meta property="og:image" content="https://guru-gnanam.github.io/wedding-invite/front-bg.png" />
@@ -17,19 +17,19 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <!-- Lightweight Confetti for Flower Shower -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <style>
     :root {
       --primary-wine: #892837;
       --secondary-rose: #a85868;
-      --deep-crimson: #6b1422;
-      --sacred-gold: #c6923b;
-      --bright-gold: #f5d77f;
+      --deep-crimson: #731320;
+      --sacred-gold: #b38234;
+      --gold-foil: #d4af37;
       --bg-cream: #faf5ef;
-      --card-bg: rgba(255, 252, 248, 0.98);
-      --text-dark: #292122;
+      --card-bg: #fffdf9;
+      --text-dark: #2c2223;
     }
 
     * {
@@ -56,7 +56,7 @@
       min-height: 100dvh;
     }
 
-    /* --- FULL SCREEN OPENING OVERLAY (EXACT IMAGE REPLICA) --- */
+    /* --- FULL SCREEN OPENING OVERLAY (EXACT POSTER REPLICA) --- */
     #welcomeOverlay {
       position: fixed;
       inset: 0;
@@ -78,7 +78,6 @@
       pointer-events: none;
     }
 
-    /* Envelope displaying the exact original wedding poster */
     .envelope-poster-card {
       width: 100%;
       max-width: 420px;
@@ -95,7 +94,6 @@
       overflow: hidden;
     }
 
-    /* Tap Zone placed directly over the image's "WELCOME" wax seal */
     .seal-tap-zone {
       position: absolute;
       top: 54.5%;
@@ -108,7 +106,6 @@
       align-items: center;
     }
 
-    /* Realistic Red-Crimson Wax Seal matching the image */
     .crimson-wax-seal {
       width: 90px;
       height: 90px;
@@ -155,14 +152,14 @@
       50% { box-shadow: 0 10px 30px rgba(155, 28, 46, 0.7), 0 0 0 10px rgba(212, 175, 55, 0); }
     }
 
-    /* --- MAIN INVITATION CARD (POPS OUT) --- */
+    /* --- REFINED MAIN INVITATION CARD (MATCHING FRONT POSTER STYLE) --- */
     .invite-card {
       max-width: 440px;
       width: 100%;
       background: var(--card-bg);
-      border: 1px solid #ebd9c8;
+      border: 1.5px solid #eedecf;
       border-radius: 28px;
-      box-shadow: 0 20px 48px rgba(107, 20, 34, 0.1);
+      box-shadow: 0 22px 50px rgba(115, 19, 32, 0.12);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -179,6 +176,7 @@
       transform: translateY(0) scale(1);
     }
 
+    /* Floral Gold & Wine Filigree Top Border */
     .invite-card::before {
       content: "";
       position: absolute;
@@ -186,7 +184,7 @@
       left: 0;
       right: 0;
       height: 5px;
-      background: linear-gradient(90deg, #6b1422, #c6923b, #f5d77f, #6b1422);
+      background: linear-gradient(90deg, #731320 0%, #b38234 35%, #f5d77f 50%, #b38234 65%, #731320 100%);
       z-index: 10;
     }
 
@@ -209,42 +207,75 @@
 
     .content {
       width: 100%;
-      padding: 24px 20px;
+      padding: 26px 20px 22px;
       text-align: center;
+      background: radial-gradient(circle at top, #fffdfa 0%, #faf3eb 100%);
     }
 
+    /* Header text matching front poster */
     .intro-text {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.15rem;
-      color: var(--secondary-rose);
+      color: #7d6567;
       font-style: italic;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
     }
 
-    h1.names {
+    .names-container {
+      margin-bottom: 20px;
+    }
+
+    .person-name {
       font-family: 'Alex Brush', cursive;
-      font-size: 2.8rem;
+      font-size: 2.85rem;
       color: var(--primary-wine);
-      line-height: 1.2;
-      margin: 4px 0 16px;
+      line-height: 1.1;
+      text-shadow: 0 1px 1px rgba(137, 40, 55, 0.1);
     }
 
-    /* --- COUNTDOWN TIMER --- */
+    .tying-knot-badge {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.98rem;
+      color: var(--sacred-gold);
+      font-style: italic;
+      letter-spacing: 2px;
+      margin: 2px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .tying-knot-badge::before,
+    .tying-knot-badge::after {
+      content: "❧";
+      font-size: 0.85rem;
+      color: var(--sacred-gold);
+    }
+    .tying-knot-badge::after {
+      transform: scaleX(-1);
+    }
+
+    /* --- THEMED COUNTDOWN TIMER --- */
     .timer-container {
-      margin-bottom: 22px;
-      background: #fff8f0;
-      border: 1px solid #ebd9c8;
-      border-radius: 16px;
-      padding: 14px 10px;
+      margin-bottom: 18px;
+      background: #ffffff;
+      border: 1px solid #ebdcd0;
+      border-radius: 18px;
+      padding: 16px 12px 14px;
+      box-shadow: 0 6px 18px rgba(179, 130, 52, 0.08);
+      position: relative;
     }
 
     .timer-label {
       font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       color: var(--sacred-gold);
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     .timer-grid {
@@ -261,75 +292,89 @@
 
     .time-val {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       font-weight: 600;
       color: var(--deep-crimson);
+      line-height: 1.1;
     }
 
     .time-unit {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
       color: #8c7864;
-      letter-spacing: 0.5px;
-      font-weight: 500;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-top: 2px;
     }
 
-    /* --- EVENT DETAILS --- */
+    /* --- THEMED EVENT DETAIL CARDS --- */
     .event-card {
       background: #ffffff;
-      border: 1px solid #eedfd0;
-      border-radius: 18px;
-      padding: 16px 14px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 12px rgba(107, 20, 34, 0.05);
+      border: 1px solid #ebdcd0;
+      border-radius: 20px;
+      padding: 20px 16px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 6px 18px rgba(115, 19, 32, 0.06);
+      position: relative;
     }
 
     .event-type {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--primary-wine);
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .event-date {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #2b2522;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-dark);
       margin-bottom: 4px;
     }
 
     .event-venue {
-      font-size: 0.86rem;
-      color: #6d5b5d;
-      margin-bottom: 12px;
+      font-size: 0.88rem;
+      color: #635052;
+      line-height: 1.4;
+      margin-bottom: 14px;
     }
 
     .btn-direction {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      gap: 6px;
       text-decoration: none;
-      background: linear-gradient(135deg, #892837 0%, #aa3d50 100%);
+      background: linear-gradient(135deg, #892837 0%, #aa384b 100%);
       color: #ffffff;
-      font-size: 0.8rem;
-      padding: 8px 22px;
-      border-radius: 20px;
-      transition: opacity 0.2s ease;
-      box-shadow: 0 3px 10px rgba(137, 40, 55, 0.25);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 9px 24px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(137, 40, 55, 0.25);
     }
 
     .btn-direction:hover {
-      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(137, 40, 55, 0.35);
+      opacity: 0.95;
     }
 
     .footer-blessing {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       color: var(--secondary-rose);
-      font-size: 1.05rem;
-      margin-top: 10px;
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+      margin-top: 14px;
     }
   </style>
 </head>
@@ -389,9 +434,15 @@
 
     <div class="content">
       <div class="intro-text">Together with our families</div>
-      <h1 class="names">Guru & Epsiba</h1>
+      
+      <!-- Matching Names from Front Cover -->
+      <div class="names-container">
+        <h1 class="person-name">Gurunathan G</h1>
+        <div class="tying-knot-badge">is tying the knot with</div>
+        <h1 class="person-name">Mariya Epsiba S</h1>
+      </div>
 
-      <!-- Countdown -->
+      <!-- Refined Countdown Timer -->
       <section class="timer-container">
         <div class="timer-label">Counting Down To The Big Day</div>
         <div class="timer-grid">
@@ -414,7 +465,7 @@
         </div>
       </section>
 
-      <!-- Wedding Event -->
+      <!-- Wedding Celebration Card -->
       <section class="event-card">
         <div class="event-type">Wedding Celebration</div>
         <div class="event-date">Friday, 20th November 2026</div>
@@ -424,12 +475,11 @@
         </a>
       </section>
 
-      <!-- Reception Event -->
+      <!-- Reception Celebration Card -->
       <section class="event-card">
         <div class="event-type">Reception Celebration</div>
         <div class="event-date">Wednesday, 25th November 2026</div>
-        <div class="event-venue">Om Thirumana Mandapam,</div>
-        <div class="event-venue">Dharmapuri.</div>
+        <div class="event-venue">Om Thirumana Mandapam, Dharmapuri.</div>
         <a href="https://maps.google.com/?q=Om+Thirumana+Mandapam" target="_blank" rel="noopener noreferrer" class="btn-direction">
           📍 View Location
         </a>
@@ -447,24 +497,20 @@
 
     let tapCount = 0;
 
-    // Two-step handler: 1st tap plays music & turns to OPEN; 2nd tap opens envelope
     function handleMedallionTap(event) {
       if (event) event.stopPropagation();
       tapCount++;
 
       if (tapCount === 1) {
-        // Step 1: Start music on user interaction
         frontAudio.volume = 0.85;
         frontAudio.play().catch(err => {
           console.log("Audio play error:", err);
         });
 
-        // Update button visual state to indicate it can now be opened
         sealLabel.innerText = "OPEN";
         sealLabel.style.color = "#f5d77f";
         sealIcon.style.transform = "scale(1.2)";
       } else {
-        // Step 2: Open invitation & trigger petals
         executeOpenInvitation();
       }
     }
@@ -514,7 +560,6 @@
     function executeOpenInvitation() {
       triggerFlowerShower();
 
-      // Smoothly fade out front music
       if (!frontAudio.paused) {
         let fadeAudio = setInterval(() => {
           if (frontAudio.volume > 0.1) {
@@ -533,7 +578,6 @@
         overlay.classList.add('hidden');
         card.classList.add('show');
 
-        // Play wedding video unmuted with sound
         video.muted = false;
         video.play().catch(err => {
           console.log("Audio autoplay restricted, falling back to muted:", err);
