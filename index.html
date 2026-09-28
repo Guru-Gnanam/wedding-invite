@@ -56,7 +56,7 @@
       min-height: 100dvh;
     }
 
-    /* --- FULL SCREEN OPENING OVERLAY (EXACT POSTER REPLICA) --- */
+    /* --- FULL SCREEN OPENING OVERLAY --- */
     #welcomeOverlay {
       position: fixed;
       inset: 0;
@@ -152,7 +152,7 @@
       50% { box-shadow: 0 10px 30px rgba(155, 28, 46, 0.7), 0 0 0 10px rgba(212, 175, 55, 0); }
     }
 
-    /* --- REFINED MAIN INVITATION CARD (MATCHING FRONT POSTER STYLE) --- */
+    /* --- REFINED MAIN INVITATION CARD --- */
     .invite-card {
       max-width: 440px;
       width: 100%;
@@ -176,7 +176,6 @@
       transform: translateY(0) scale(1);
     }
 
-    /* Floral Gold & Wine Filigree Top Border */
     .invite-card::before {
       content: "";
       position: absolute;
@@ -207,12 +206,14 @@
 
     .content {
       width: 100%;
-      padding: 26px 20px 22px;
+      padding: 26px 18px 22px;
       text-align: center;
-      background: radial-gradient(circle at top, #fffdfa 0%, #faf3eb 100%);
+      background: 
+        radial-gradient(circle at top right, rgba(245, 215, 127, 0.08), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(168, 88, 104, 0.06), transparent 40%),
+        #fffdfa;
     }
 
-    /* Header text matching front poster */
     .intro-text {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.15rem;
@@ -257,12 +258,12 @@
       transform: scaleX(-1);
     }
 
-    /* --- THEMED COUNTDOWN TIMER --- */
+    /* --- COUNTDOWN TIMER --- */
     .timer-container {
       margin-bottom: 18px;
-      background: #ffffff;
+      background: linear-gradient(180deg, #ffffff 0%, #fcf7f2 100%);
       border: 1px solid #ebdcd0;
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 16px 12px 14px;
       box-shadow: 0 6px 18px rgba(179, 130, 52, 0.08);
       position: relative;
@@ -276,6 +277,10 @@
       color: var(--sacred-gold);
       font-weight: 700;
       margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     .timer-grid {
@@ -307,74 +312,111 @@
       margin-top: 2px;
     }
 
-    /* --- THEMED EVENT DETAIL CARDS --- */
+    /* --- LIVELY & NATURE THEMED EVENT CARDS --- */
     .event-card {
-      background: #ffffff;
-      border: 1px solid #ebdcd0;
-      border-radius: 20px;
-      padding: 20px 16px 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 6px 18px rgba(115, 19, 32, 0.06);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(253, 248, 242, 0.95) 100%);
+      border: 1.5px solid #ecdcd0;
+      border-radius: 22px;
+      padding: 22px 16px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 22px rgba(137, 40, 55, 0.07);
       position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle botanical background watermark */
+    .event-card::after {
+      content: "🌸";
+      position: absolute;
+      right: -8px;
+      bottom: -10px;
+      font-size: 4rem;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .event-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .event-emoji {
+      font-size: 1.25rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
 
     .event-type {
       font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--primary-wine);
       letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 6px;
     }
 
-    .event-date {
+    .event-date-row {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       font-weight: 600;
-      color: var(--text-dark);
+      color: #3b2a2c;
       margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
-    .event-venue {
-      font-size: 0.88rem;
-      color: #635052;
-      line-height: 1.4;
-      margin-bottom: 14px;
+    .event-venue-row {
+      font-size: 0.9rem;
+      color: #5e4e50;
+      line-height: 1.45;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
 
     .btn-direction {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
       text-decoration: none;
       background: linear-gradient(135deg, #892837 0%, #aa384b 100%);
       color: #ffffff;
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 500;
       letter-spacing: 0.5px;
-      padding: 9px 24px;
-      border-radius: 25px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 14px rgba(137, 40, 55, 0.25);
+      padding: 10px 28px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 16px rgba(137, 40, 55, 0.3);
     }
 
     .btn-direction:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(137, 40, 55, 0.35);
-      opacity: 0.95;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 22px rgba(137, 40, 55, 0.4);
+      opacity: 0.98;
     }
 
     .footer-blessing {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       color: var(--secondary-rose);
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       letter-spacing: 0.5px;
       margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
   </style>
 </head>
@@ -433,7 +475,7 @@
     </div>
 
     <div class="content">
-      <div class="intro-text">Together with our families</div>
+      <div class="intro-text">✨ Together with our families ✨</div>
       
       <!-- Matching Names from Front Cover -->
       <div class="names-container">
@@ -444,7 +486,7 @@
 
       <!-- Refined Countdown Timer -->
       <section class="timer-container">
-        <div class="timer-label">Counting Down To The Big Day</div>
+        <div class="timer-label">⏳ Counting Down To The Big Day ⏳</div>
         <div class="timer-grid">
           <div class="time-box">
             <span class="time-val" id="days">00</span>
@@ -465,27 +507,41 @@
         </div>
       </section>
 
-      <!-- Wedding Celebration Card -->
+      <!-- Lively Wedding Celebration Card -->
       <section class="event-card">
-        <div class="event-type">Wedding Celebration</div>
-        <div class="event-date">Friday, 20th November 2026</div>
-        <div class="event-venue">MJR Mahal, Marakkanam</div>
+        <div class="event-header">
+          <span class="event-emoji">💍</span>
+          <h2 class="event-type">Wedding Celebration</h2>
+        </div>
+        <div class="event-date-row">
+          <span>🗓️</span> Friday, 20th November 2026
+        </div>
+        <div class="event-venue-row">
+          <span>🏛️</span> MJR Mahal, Marakkanam
+        </div>
         <a href="https://maps.google.com/?q=MJR+Mahal+Marakkanam" target="_blank" rel="noopener noreferrer" class="btn-direction">
           📍 View Location
         </a>
       </section>
 
-      <!-- Reception Celebration Card -->
+      <!-- Lively Reception Celebration Card -->
       <section class="event-card">
-        <div class="event-type">Reception Celebration</div>
-        <div class="event-date">Wednesday, 25th November 2026</div>
-        <div class="event-venue">Om Thirumana Mandapam, Dharmapuri.</div>
+        <div class="event-header">
+          <span class="event-emoji">🥂</span>
+          <h2 class="event-type">Reception Celebration</h2>
+        </div>
+        <div class="event-date-row">
+          <span>🗓️</span> Wednesday, 25th November 2026
+        </div>
+        <div class="event-venue-row">
+          <span>🏛️</span> Om Thirumana Mandapam, Dharmapuri.
+        </div>
         <a href="https://maps.google.com/?q=Om+Thirumana+Mandapam" target="_blank" rel="noopener noreferrer" class="btn-direction">
           📍 View Location
         </a>
       </section>
 
-      <p class="footer-blessing">We warmly seek your presence and blessings</p>
+      <p class="footer-blessing">🌸 We warmly seek your presence and blessings 🌸</p>
     </div>
   </main>
 
