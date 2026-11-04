@@ -18,9 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <!-- Confetti script -->
+  <!-- Lightweight Confetti for Flower Shower -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-
   <style>
     :root {
       --primary-wine: #6e1322;
@@ -37,44 +36,52 @@
       padding: 0;
     }
 
-    html {
+    html, body {
       width: 100%;
-      height: 100%;
-      background-color: #260a0f;
+      min-height: 100%;
+      background-color: #110507;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: var(--text-dark);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
     body {
-      width: 100%;
-      min-height: 100%;
-      background: radial-gradient(circle at top, #260a0f 0%, #0d0204 100%);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      color: var(--text-dark);
+      background: radial-gradient(circle at top, #fdf9f4 0%, #ece0d2 100%);
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 16px 10px;
-      overflow-x: hidden;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 10px 40px;
     }
 
-    /* --- OVERLAY ENVELOPE SCREEN --- */
+    /* Container wrapper for cards */
+    .page-container {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    /* --- FULL SCREEN OPENING OVERLAY --- */
     #welcomeOverlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
+      width: 100vw;
+      height: 100dvh;
       background: radial-gradient(circle at center, #260a0f 0%, #0d0204 100%);
       z-index: 99999;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 16px 10px;
-      transition: opacity 0.8s ease, transform 0.8s ease, visibility 0.8s;
+      padding: 10px;
+      margin: 0;
+      transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.85s;
     }
 
-    #welcomeOverlay.unsealed {
+    #welcomeOverlay.hidden {
       opacity: 0;
-      transform: scale(1.04);
       visibility: hidden;
       pointer-events: none;
     }
@@ -82,14 +89,12 @@
     .envelope-poster-card {
       width: 100%;
       max-width: 420px;
-      height: 90vh;
+      height: 94dvh;
       max-height: 720px;
-      min-height: 540px;
-      background: #faf6ef url('front-bg.png') no-repeat center center;
+      background: #fdfaf6 url('front-bg.png') no-repeat center center;
       background-size: cover;
-      border-radius: 20px;
-      border: 1px solid rgba(198, 146, 59, 0.5);
-      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85);
+      border-radius: 18px;
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(198, 146, 59, 0.45);
       position: relative;
       display: flex;
       justify-content: center;
@@ -99,75 +104,83 @@
 
     .seal-tap-zone {
       position: absolute;
-      top: 51.5%;
+      top: 54.5%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 110px;
-      height: 110px;
       z-index: 5;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      outline: none;
-      -webkit-tap-highlight-color: transparent;
     }
 
-    .seal-aura-halo {
-      width: 100px;
-      height: 100px;
+    .crimson-wax-seal {
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle at 35% 35%, #9b1c2e 0%, #761421 65%, #460912 100%);
       border-radius: 50%;
-      border: 2px solid rgba(212, 175, 55, 0.85);
-      box-shadow: 0 0 22px rgba(212, 175, 55, 0.7), inset 0 0 16px rgba(212, 175, 55, 0.35);
-      animation: sealHaloPulse 2.2s infinite ease-in-out;
+      border: 3px solid #d4af37;
+      box-shadow: 
+        0 10px 28px rgba(0, 0, 0, 0.5),
+        inset 0 2px 6px rgba(255, 255, 255, 0.45),
+        0 0 0 4px rgba(212, 175, 55, 0.3);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: rgba(110, 19, 34, 0.15);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: sealPulse 2.5s infinite;
+      position: relative;
+    }
+
+    .crimson-wax-seal:hover {
+      transform: scale(1.08);
+    }
+
+    .seal-heart-svg {
+      width: 26px;
+      height: 26px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+      margin-bottom: 2px;
       transition: transform 0.25s ease;
     }
 
-    .seal-tap-zone:hover .seal-aura-halo {
-      transform: scale(1.06);
-    }
-
-    .seal-open-text {
+    .seal-text {
       font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 2.5px;
-      color: #fff6db;
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: #faebd7;
       font-weight: 700;
       text-transform: uppercase;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
-      user-select: none;
+      transition: color 0.3s ease;
     }
 
-    @keyframes sealHaloPulse {
-      0%, 100% {
-        transform: scale(0.96);
-        box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-      }
-      50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 28px rgba(212, 175, 55, 0.95), inset 0 0 18px rgba(212, 175, 55, 0.45);
-      }
+    @keyframes sealPulse {
+      0%, 100% { box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 4px rgba(212, 175, 55, 0.3); }
+      50% { box-shadow: 0 10px 30px rgba(155, 28, 46, 0.7), 0 0 0 10px rgba(212, 175, 55, 0); }
     }
 
-    /* --- INVITATION MAIN CARD --- */
-    .invite-card {
+    /* --- COMMON CARD STYLING --- */
+    .invite-card, .memories-card {
       max-width: 440px;
       width: 100%;
       background: #faf6ef;
       border: 1px solid #e7d8c6;
       border-radius: 24px;
-      box-shadow: 0 22px 55px rgba(99, 15, 28, 0.25);
+      box-shadow: 0 22px 55px rgba(99, 15, 28, 0.16);
       overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
-      margin: auto 0;
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .invite-card.show, .memories-card.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     .video-frame {
@@ -186,46 +199,10 @@
       -webkit-user-select: none;
     }
 
-    /* Scroll Down Indicator */
-    .scroll-cue-container {
-      width: 100%;
-      background: #faf6ef;
-      padding: 12px 0 4px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .scroll-cue-text {
-      font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 2.5px;
-      color: var(--primary-wine);
-      text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .scroll-chevron-svg {
-      width: 18px;
-      height: 18px;
-      animation: bounceDown 1.8s infinite ease-in-out;
-      fill: none;
-      stroke: var(--sacred-gold);
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    @keyframes bounceDown {
-      0%, 100% { transform: translateY(0); opacity: 0.6; }
-      50% { transform: translateY(6px); opacity: 1; }
-    }
-
+    /* Traditional Indian Wedding Content Container */
     .content {
       width: 100%;
-      padding: 20px 20px 30px;
+      padding: 34px 20px 24px;
       text-align: center;
       background: 
         radial-gradient(circle at top right, rgba(179, 131, 59, 0.08), transparent 50%),
@@ -234,6 +211,7 @@
       position: relative;
     }
 
+    /* Watermark Mandalas in Opposite Corners */
     .content::before {
       content: "";
       position: absolute;
@@ -268,6 +246,7 @@
       letter-spacing: 0.5px;
     }
 
+    /* Ornate Gold Dividers */
     .flourish-divider {
       display: flex;
       align-items: center;
@@ -287,6 +266,7 @@
       background: linear-gradient(90deg, transparent, var(--sacred-gold), transparent);
     }
 
+    /* Couple Names */
     .couple-section {
       margin-bottom: 24px;
     }
@@ -316,6 +296,7 @@
       font-size: 0.85rem;
     }
 
+    /* Royal Maroon Countdown Arch Banner */
     .countdown-arch-banner {
       width: 100%;
       background: radial-gradient(circle at center, #781324 0%, #580d19 100%);
@@ -385,6 +366,7 @@
     .star-left { left: 14px; }
     .star-right { right: 14px; }
 
+    /* Ceremony Sections */
     .ceremony-block {
       margin-bottom: 26px;
       display: flex;
@@ -427,6 +409,7 @@
       margin-bottom: 12px;
     }
 
+    /* Maroon & Gold Pill Button */
     .btn-maroon-pill {
       display: inline-flex;
       align-items: center;
@@ -452,18 +435,88 @@
       filter: brightness(1.08);
     }
 
-    /* --- MEMORIES PHOTO SLIDER SECTION --- */
-    .memories-section {
-      width: 100%;
-      margin: 20px 0 26px;
+    .footer-blessing-text {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #6d523a;
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- SCROLL DOWN INDICATOR --- */
+    .scroll-indicator-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 26px;
+      text-decoration: none;
+      color: var(--sacred-gold);
+      cursor: pointer;
+      animation: floatBlink 2.2s ease-in-out infinite;
+    }
+
+    .scroll-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--primary-wine);
+      margin-bottom: 6px;
+    }
+
+    .scroll-mouse-pill {
+      width: 22px;
+      height: 36px;
+      border: 2px solid var(--sacred-gold);
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      padding-top: 6px;
+      box-shadow: 0 2px 8px rgba(179, 131, 59, 0.25);
+    }
+
+    .scroll-dot {
+      width: 4px;
+      height: 7px;
+      background: var(--primary-wine);
+      border-radius: 2px;
+      animation: dotDrop 1.8s infinite;
+    }
+
+    .scroll-arrow-chevrons {
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-top: 4px;
+      line-height: 0.7;
+      font-size: 0.75rem;
     }
 
-    .memories-title {
+    @keyframes floatBlink {
+      0%, 100% { transform: translateY(0); opacity: 0.85; }
+      50% { transform: translateY(6px); opacity: 1; }
+    }
+
+    @keyframes dotDrop {
+      0% { transform: translateY(0); opacity: 1; }
+      80% { transform: translateY(12px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 0; }
+    }
+
+    /* --- MEMORIES PHOTO SLIDER CARD --- */
+    .memories-card {
+      padding: 28px 18px 26px;
+      text-align: center;
+      background: 
+        radial-gradient(circle at top left, rgba(179, 131, 59, 0.08), transparent 50%),
+        radial-gradient(circle at bottom right, rgba(110, 19, 34, 0.06), transparent 50%),
+        #faf6ef;
+    }
+
+    .memories-header-title {
       font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: var(--primary-wine);
       letter-spacing: 3px;
@@ -471,21 +524,25 @@
       margin-bottom: 2px;
     }
 
-    .memories-subtitle {
-      font-size: 1.05rem;
+    .memories-sub {
+      font-size: 1.15rem;
       font-style: italic;
       color: #6d523a;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
     .slider-frame {
-      width: 100%;
       position: relative;
-      overflow: hidden;
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 4 / 5;
+      margin: 0 auto 12px;
       border-radius: 18px;
-      border: 1.5px solid rgba(179, 131, 59, 0.4);
-      background: #0d0204;
-      box-shadow: 0 10px 24px rgba(99, 15, 28, 0.18);
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(99, 15, 28, 0.22);
+      border: 3px solid #fff;
+      outline: 1.5px solid var(--sacred-gold);
+      background-color: #1a0e10;
       touch-action: pan-y;
       user-select: none;
     }
@@ -493,17 +550,14 @@
     .slider-track {
       display: flex;
       width: 100%;
-      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     .slide-item {
       min-width: 100%;
-      height: 380px;
+      height: 100%;
       position: relative;
-      background: #110507;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .slide-item img {
@@ -514,86 +568,87 @@
       pointer-events: none;
     }
 
-    .slide-caption-bar {
+    .slide-caption-badge {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(13, 2, 4, 0.85) 0%, transparent 100%);
-      padding: 24px 14px 10px;
-      color: #faf5ed;
-      font-size: 0.9rem;
-      font-style: italic;
-      letter-spacing: 0.5px;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(18, 5, 8, 0.72);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      color: #faebd7;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      border: 1px solid rgba(216, 178, 110, 0.45);
+      white-space: nowrap;
     }
 
-    /* Slider arrow controls */
+    /* Slider Prev/Next Controls */
     .slider-arrow-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 34px;
-      height: 34px;
-      background: rgba(42, 10, 16, 0.7);
-      border: 1px solid var(--soft-gold);
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      color: #faf5ed;
-      font-size: 1rem;
+      background: rgba(18, 5, 8, 0.6);
+      border: 1px solid var(--soft-gold);
+      color: #ffffff;
+      font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 10;
-      backdrop-filter: blur(4px);
-      transition: background 0.2s;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(3px);
     }
 
     .slider-arrow-btn:hover {
-      background: rgba(110, 19, 34, 0.95);
+      background: var(--primary-wine);
+      transform: translateY(-50%) scale(1.1);
     }
 
-    .arrow-left { left: 8px; }
-    .arrow-right { right: 8px; }
+    .slider-arrow-btn.left { left: 8px; }
+    .slider-arrow-btn.right { right: 8px; }
 
-    /* Slider pagination dots */
-    .slider-dots-box {
+    /* Dot Indicators */
+    .slider-dots-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       margin-top: 10px;
     }
 
     .slider-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: rgba(179, 131, 59, 0.35);
+      background: #d8c7b4;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.3s ease;
     }
 
     .slider-dot.active {
-      width: 18px;
-      border-radius: 4px;
+      width: 22px;
+      border-radius: 10px;
       background: var(--primary-wine);
     }
 
-    .slide-swipe-hint {
+    .swipe-hint {
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 1px;
+      font-size: 0.74rem;
       color: #8c735d;
-      margin-top: 6px;
-      text-transform: uppercase;
-    }
-
-    .footer-blessing-text {
-      font-size: 1.2rem;
-      font-style: italic;
-      color: #6d523a;
-      margin-top: 14px;
+      margin-top: 10px;
       letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
   </style>
 </head>
@@ -607,302 +662,308 @@
   <!-- Full-Screen Wedding Poster Overlay -->
   <div id="welcomeOverlay">
     <div class="envelope-poster-card">
-      <div class="seal-tap-zone" onclick="handleSealOpen(event)" title="Tap to Open">
-        <div class="seal-aura-halo">
-          <span class="seal-open-text">OPEN</span>
+      
+      <!-- Interactive Two-Step Touch Seal -->
+      <div class="seal-tap-zone" onclick="handleMedallionTap(event)">
+        <div class="crimson-wax-seal" id="sealBtn">
+          <svg class="seal-heart-svg" id="sealIcon" viewBox="0 0 32 32">
+            <defs>
+              <linearGradient id="heartGold" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#fff6db"/>
+                <stop offset="0.45" stop-color="#f5d77f"/>
+                <stop offset="1" stop-color="#c6923b"/>
+              </linearGradient>
+            </defs>
+            <path 
+              d="M16 28.5 C15.4 28.5 4 19.8 4 11.2 C4 6.7 7.5 3.5 11.8 3.5 C14.3 3.5 15.4 4.8 16 5.6 C16.6 4.8 17.7 3.5 20.2 3.5 C24.5 3.5 28 6.7 28 11.2 C28 19.8 16.6 28.5 16 28.5 Z" 
+              fill="url(#heartGold)" 
+              stroke="#b57e29" 
+              stroke-width="1"
+            />
+          </svg>
+          <div class="seal-text" id="sealLabel">WELCOME</div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <!-- Main Invitation Card -->
-  <main class="invite-card" id="inviteCard">
-    <div class="video-frame">
-      <video 
-        id="inviteVideo" 
-        playsinline 
-        webkit-playsinline 
-        loop 
-        preload="auto"
-        disablePictureInPicture
-        disableremoteplayback
-      >
-        <source src="invite.mp4" type="video/mp4" />
-        Your browser does not support the video element.
-      </video>
-    </div>
-
-    <!-- Bouncing Scroll Down Indication -->
-    <div class="scroll-cue-container" onclick="scrollToDetails()">
-      <span class="scroll-cue-text">Scroll for Details</span>
-      <svg class="scroll-chevron-svg" viewBox="0 0 24 24">
-        <path d="M6 9l6 6 6-6" />
-      </svg>
-    </div>
-
-    <div class="content" id="detailsSection">
-      <div class="intro-script">Together with our families</div>
-      <div class="flourish-divider">✤</div>
-
-      <div class="couple-section">
-        <h1 class="couple-name">Guru</h1>
-        <div class="knot-caption"><span>❧</span> is tying the knot with <span>☙</span></div>
-        <h1 class="couple-name">Epsiba</h1>
+  <div class="page-container">
+    <!-- Main Invitation Pop-Out Card -->
+    <main class="invite-card" id="inviteCard">
+      <div class="video-frame">
+        <video 
+          id="inviteVideo" 
+          playsinline 
+          webkit-playsinline 
+          loop 
+          preload="auto" 
+          disablePictureInPicture
+          disableremoteplayback
+        >
+          <source src="invite.mp4" type="video/mp4" />
+          Your browser does not support the video element.
+        </video>
       </div>
 
-      <div class="flourish-divider">✤</div>
+      <!-- Authentic Design Content matching your reference image -->
+      <div class="content">
+        <div class="intro-script">Together with our families</div>
+        <div class="flourish-divider">✤</div>
 
-      <!-- Countdown Banner -->
-      <section class="countdown-arch-banner">
-        <span class="arch-corner-star star-left">✤</span>
-        <span class="arch-corner-star star-right">✤</span>
-        <div class="countdown-title">Counting Down To The Big Day</div>
-        
-        <div class="countdown-columns">
-          <div class="count-unit-box">
-            <span class="count-val" id="days">00</span>
-            <span class="count-lbl">Days</span>
-          </div>
-          <div class="count-divider-line"></div>
-          <div class="count-unit-box">
-            <span class="count-val" id="hours">00</span>
-            <span class="count-lbl">Hours</span>
-          </div>
-          <div class="count-divider-line"></div>
-          <div class="count-unit-box">
-            <span class="count-val" id="minutes">00</span>
-            <span class="count-lbl">Mins</span>
-          </div>
-          <div class="count-divider-line"></div>
-          <div class="count-unit-box">
-            <span class="count-val" id="seconds">00</span>
-            <span class="count-lbl">Secs</span>
-          </div>
+        <!-- Couple Names in Script -->
+        <div class="couple-section">
+          <h1 class="couple-name">Guru</h1>
+          <div class="knot-caption"><span>❧</span> is tying the knot with <span>☙</span></div>
+          <h1 class="couple-name">Epsiba</h1>
         </div>
-      </section>
 
-      <!-- Wedding Celebration Block -->
-      <section class="ceremony-block">
-        <svg class="gold-emblem-svg" viewBox="0 0 100 48" fill="none">
-          <path d="M50 4 L53 10 L47 10 Z" fill="#b3833b"/>
-          <path d="M43 11 L57 11 L55 18 L45 18 Z" fill="#b3833b"/>
-          <path d="M39 19 L61 19 L58 26 L42 26 Z" fill="#b3833b"/>
-          <rect x="42" y="27" width="4" height="15" fill="#b3833b"/>
-          <rect x="54" y="27" width="4" height="15" fill="#b3833b"/>
-          <rect x="47" y="32" width="6" height="10" stroke="#b3833b" stroke-width="1.5"/>
-          <rect x="37" y="42" width="26" height="3" fill="#b3833b"/>
-          <path d="M35 34 C25 32, 18 25, 14 18 C20 22, 28 25, 34 26" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M65 34 C75 32, 82 25, 86 18 C80 22, 72 25, 66 26" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-
-        <h2 class="ceremony-title">Wedding Celebration</h2>
         <div class="flourish-divider">✤</div>
-        <div class="ceremony-date">Friday, 20th November 2026</div>
-        <div class="ceremony-venue">📍 MJR Mahal, Marakkanam</div>
-        <a href="https://maps.google.com/?q=MJR+Mahal+Marakkanam" target="_blank" rel="noopener noreferrer" class="btn-maroon-pill">
-          📍 View Location &rarr;
-        </a>
-      </section>
 
-      <!-- Reception Celebration Block -->
-      <section class="ceremony-block">
-        <svg class="gold-emblem-svg" viewBox="0 0 100 48" fill="none">
-          <circle cx="43" cy="27" r="13" stroke="#b3833b" stroke-width="2.5"/>
-          <circle cx="57" cy="25" r="12" stroke="#b3833b" stroke-width="2.5"/>
-          <polygon points="57,6 52,12 62,12" fill="#ffffff" stroke="#b3833b" stroke-width="1"/>
-          <path d="M30 32 C22 30, 16 24, 12 18 C18 21, 25 23, 30 24" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M70 32 C78 30, 84 24, 88 18 C82 21, 75 23, 70 24" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-
-        <h2 class="ceremony-title">Reception Celebration</h2>
-        <div class="flourish-divider">✤</div>
-        <div class="ceremony-date">Wednesday, 25th November 2026</div>
-        <div class="ceremony-venue">📍 Om Thirumana Mandapam, Dharmapuri</div>
-        <a href="https://maps.google.com/?q=Om+Thirumana+Mandapam" target="_blank" rel="noopener noreferrer" class="btn-maroon-pill">
-          📍 View Location &rarr;
-        </a>
-      </section>
-
-      <div class="flourish-divider">✤</div>
-
-      <!-- --- OUR MEMORIES PHOTO SLIDER --- -->
-      <section class="memories-section">
-        <svg class="gold-emblem-svg" viewBox="0 0 100 48" fill="none">
-          <path d="M50 38 C50 38 32 26 24 18 C16 10 23 2 32 4 C38 5 44 11 50 16 C56 11 62 5 68 4 C77 2 84 10 76 18 C68 26 50 38 50 38 Z" stroke="#b3833b" stroke-width="1.5" fill="none"/>
-        </svg>
-        <h2 class="memories-title">Our Moments</h2>
-        <p class="memories-subtitle">Capturing our journey together</p>
-
-        <div class="slider-frame" id="sliderFrame">
-          <button class="slider-arrow-btn arrow-left" onclick="prevSlide(event)" aria-label="Previous Photo">‹</button>
+        <!-- Royal Maroon Arched Countdown Banner -->
+        <section class="countdown-arch-banner">
+          <span class="arch-corner-star star-left">✤</span>
+          <span class="arch-corner-star star-right">✤</span>
+          <div class="countdown-title">Counting Down To The Big Day</div>
           
-          <div class="slider-track" id="sliderTrack">
-            <!-- Replace photo1.jpg through photo7.jpg with your repo images -->
-            <div class="slide-item">
-              <img src="photo1.jpg" onerror="this.src='front-bg.png'" alt="Memory 1" />
-              <div class="slide-caption-bar">Where our journey began ✨</div>
+          <div class="countdown-columns">
+            <div class="count-unit-box">
+              <span class="count-val" id="days">00</span>
+              <span class="count-lbl">Days</span>
             </div>
-            <div class="slide-item">
-              <img src="photo2.jpg" onerror="this.src='front-bg.png'" alt="Memory 2" />
-              <div class="slide-caption-bar">Special moments together 💛</div>
+            <div class="count-divider-line"></div>
+            <div class="count-unit-box">
+              <span class="count-val" id="hours">00</span>
+              <span class="count-lbl">Hours</span>
             </div>
-            <div class="slide-item">
-              <img src="photo3.jpg" onerror="this.src='front-bg.png'" alt="Memory 3" />
-              <div class="slide-caption-bar">Laughter and smiles 😊</div>
+            <div class="count-divider-line"></div>
+            <div class="count-unit-box">
+              <span class="count-val" id="minutes">00</span>
+              <span class="count-lbl">Mins</span>
             </div>
-            <div class="slide-item">
-              <img src="photo4.jpg" onerror="this.src='front-bg.png'" alt="Memory 4" />
-              <div class="slide-caption-bar">Cherished days 🌿</div>
-            </div>
-            <div class="slide-item">
-              <img src="photo5.jpg" onerror="this.src='front-bg.png'" alt="Memory 5" />
-              <div class="slide-caption-bar">Counting down to forever 💍</div>
+            <div class="count-divider-line"></div>
+            <div class="count-unit-box">
+              <span class="count-val" id="seconds">00</span>
+              <span class="count-lbl">Secs</span>
             </div>
           </div>
+        </section>
 
-          <button class="slider-arrow-btn arrow-right" onclick="nextSlide(event)" aria-label="Next Photo">›</button>
-        </div>
+        <!-- Wedding Celebration Block -->
+        <section class="ceremony-block">
+          <!-- Temple Mandapam Gold Icon -->
+          <svg class="gold-emblem-svg" viewBox="0 0 100 48" fill="none">
+            <path d="M50 4 L53 10 L47 10 Z" fill="#b3833b"/>
+            <path d="M43 11 L57 11 L55 18 L45 18 Z" fill="#b3833b"/>
+            <path d="M39 19 L61 19 L58 26 L42 26 Z" fill="#b3833b"/>
+            <rect x="42" y="27" width="4" height="15" fill="#b3833b"/>
+            <rect x="54" y="27" width="4" height="15" fill="#b3833b"/>
+            <rect x="47" y="32" width="6" height="10" stroke="#b3833b" stroke-width="1.5"/>
+            <rect x="37" y="42" width="26" height="3" fill="#b3833b"/>
+            <!-- Flourish Laurel Leaves -->
+            <path d="M35 34 C25 32, 18 25, 14 18 C20 22, 28 25, 34 26" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M65 34 C75 32, 82 25, 86 18 C80 22, 72 25, 66 26" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
 
-        <!-- Dot Indicators -->
-        <div class="slider-dots-box" id="sliderDots"></div>
-        <div class="slide-swipe-hint">‹ Swipe left to explore photos ›</div>
-      </section>
+          <h2 class="ceremony-title">Wedding Celebration</h2>
+          <div class="flourish-divider">✤</div>
+          <div class="ceremony-date">Friday, 20th November 2026</div>
+          <div class="ceremony-venue">📍 MJR Mahal, Marakkanam</div>
+          <a href="https://maps.google.com/?q=MJR+Mahal+Marakkanam" target="_blank" rel="noopener noreferrer" class="btn-maroon-pill">
+            📍 View Location &rarr;
+          </a>
+        </section>
 
+        <!-- Reception Celebration Block -->
+        <section class="ceremony-block">
+          <!-- Intertwined Wedding Rings Gold Icon -->
+          <svg class="gold-emblem-svg" viewBox="0 0 100 48" fill="none">
+            <!-- Left Ring -->
+            <circle cx="43" cy="27" r="13" stroke="#b3833b" stroke-width="2.5"/>
+            <!-- Right Ring with Diamond Solitaire -->
+            <circle cx="57" cy="25" r="12" stroke="#b3833b" stroke-width="2.5"/>
+            <polygon points="57,6 52,12 62,12" fill="#ffffff" stroke="#b3833b" stroke-width="1"/>
+            <!-- Flourish Leaves -->
+            <path d="M30 32 C22 30, 16 24, 12 18 C18 21, 25 23, 30 24" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M70 32 C78 30, 84 24, 88 18 C82 21, 75 23, 70 24" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+
+          <h2 class="ceremony-title">Reception Celebration</h2>
+          <div class="flourish-divider">✤</div>
+          <div class="ceremony-date">Wednesday, 25th November 2026</div>
+          <div class="ceremony-venue">📍 Om Thirumana Mandapam, Dharmapuri</div>
+          <a href="https://maps.google.com/?q=Om+Thirumana+Mandapam" target="_blank" rel="noopener noreferrer" class="btn-maroon-pill">
+            📍 View Location &rarr;
+          </a>
+        </section>
+
+        <div class="flourish-divider">✤</div>
+        <p class="footer-blessing-text">We warmly seek your presence and blessings</p>
+        <div class="flourish-divider" style="margin-bottom: 0;">✤</div>
+
+        <!-- Scroll Down Indication -->
+        <a href="#memoriesCard" class="scroll-indicator-wrap" aria-label="Scroll to Photo Memories">
+          <span class="scroll-text">Our Memories</span>
+          <div class="scroll-mouse-pill">
+            <div class="scroll-dot"></div>
+          </div>
+          <div class="scroll-arrow-chevrons">
+            <span>⌄</span>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <!-- Memories / Moments Photo Slider Section -->
+    <section class="memories-card" id="memoriesCard">
+      <h2 class="memories-header-title">Cherished Moments</h2>
       <div class="flourish-divider">✤</div>
-      <p class="footer-blessing-text">We warmly seek your presence and blessings</p>
-      <div class="flourish-divider" style="margin-bottom: 0;">✤</div>
-    </div>
-  </main>
+      <p class="memories-sub">A glimpse into our beautiful journey</p>
+
+      <!-- Carousel / Slider -->
+      <div class="slider-frame" id="sliderFrame">
+        <button class="slider-arrow-btn left" id="prevSlide" aria-label="Previous Photo">&#10094;</button>
+        <button class="slider-arrow-btn right" id="nextSlide" aria-label="Next Photo">&#10095;</button>
+        
+        <div class="slider-track" id="sliderTrack">
+          <!-- Slide 1 -->
+          <div class="slide-item">
+            <img src="gallery-1.jpg" alt="Memory 1" onerror="this.onerror=null; this.src='https://picsum.photos/600/750?random=1';"/>
+            <span class="slide-caption-badge">Every Moment With You</span>
+          </div>
+          <!-- Slide 2 -->
+          <div class="slide-item">
+            <img src="gallery-2.jpg" alt="Memory 2" onerror="this.onerror=null; this.src='https://picsum.photos/600/750?random=2';"/>
+            <span class="slide-caption-badge">Forever & Always</span>
+          </div>
+          <!-- Slide 3 -->
+          <div class="slide-item">
+            <img src="gallery-3.jpg" alt="Memory 3" onerror="this.onerror=null; this.src='https://picsum.photos/600/750?random=3';"/>
+            <span class="slide-caption-badge">Smiles & Sunshine</span>
+          </div>
+          <!-- Slide 4 -->
+          <div class="slide-item">
+            <img src="gallery-4.jpg" alt="Memory 4" onerror="this.onerror=null; this.src='https://picsum.photos/600/750?random=4';"/>
+            <span class="slide-caption-badge">Two Hearts, One Soul</span>
+          </div>
+          <!-- Slide 5 -->
+          <div class="slide-item">
+            <img src="gallery-5.jpg" alt="Memory 5" onerror="this.onerror=null; this.src='https://picsum.photos/600/750?random=5';"/>
+            <span class="slide-caption-badge">Counting Our Blessings</span>
+          </div>
+          <!-- Slide 6 -->
+          <div class="slide-item">
+            <img src="gallery-6.jpg" alt="Memory 6" onerror="this.onerror=null; this.src='https://picsum.photos/600/750?random=6';"/>
+            <span class="slide-caption-badge">Together Forever</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dots Indicators -->
+      <div class="slider-dots-container" id="sliderDots"></div>
+      <div class="swipe-hint"><span>⇄</span> Swipe left to see more photos</div>
+      <div class="flourish-divider" style="margin-top: 14px; margin-bottom: 0;">✤</div>
+    </section>
+  </div>
 
   <script>
     const frontAudio = document.getElementById('frontAudio');
     const video = document.getElementById('inviteVideo');
-    const overlay = document.getElementById('welcomeOverlay');
+    const sealLabel = document.getElementById('sealLabel');
+    const sealIcon = document.getElementById('sealIcon');
 
-    let isOpened = false;
+    let tapCount = 0;
 
-    function handleSealOpen(event) {
+    function handleMedallionTap(event) {
       if (event) event.stopPropagation();
-      if (isOpened) return;
-      isOpened = true;
+      tapCount++;
 
-      // 1. Play audio immediately on user click
-      frontAudio.volume = 0.9;
-      frontAudio.play().catch(err => console.log("Audio unlock:", err));
-
-      // 2. Confetti flower shower
-      if (typeof confetti === 'function') {
-        const petals = ['#d82643', '#ff758f', '#fff4f6', '#fca311', '#ffffff'];
-        confetti({
-          particleCount: 75,
-          spread: 110,
-          origin: { y: 0.55 },
-          colors: petals,
-          scalar: 1.25,
-          shapes: ['circle'],
-          ticks: 200,
-          gravity: 0.7,
-          drift: 0.1
+      if (tapCount === 1) {
+        frontAudio.volume = 0.85;
+        frontAudio.play().catch(err => {
+          console.log("Audio play error:", err);
         });
-      }
 
-      // 3. Audio fade-out
+        sealLabel.innerText = "OPEN";
+        sealLabel.style.color = "#f5d77f";
+        sealIcon.style.transform = "scale(1.2)";
+      } else {
+        executeOpenInvitation();
+      }
+    }
+
+    function triggerFlowerShower() {
+      const petals = ['#d82643', '#ff758f', '#fff4f6', '#fca311', '#ffffff'];
+
+      confetti({
+        particleCount: 75,
+        spread: 110,
+        origin: { y: 0.55 },
+        colors: petals,
+        scalar: 1.25,
+        shapes: ['circle'],
+        ticks: 200,
+        gravity: 0.7,
+        drift: 0.1
+      });
+
       setTimeout(() => {
+        confetti({
+          particleCount: 45,
+          angle: 60,
+          spread: 75,
+          origin: { x: 0, y: 0.65 },
+          colors: petals,
+          scalar: 1.3,
+          shapes: ['circle'],
+          gravity: 0.8
+        });
+      }, 180);
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 45,
+          angle: 120,
+          spread: 75,
+          origin: { x: 1, y: 0.65 },
+          colors: petals,
+          scalar: 1.3,
+          shapes: ['circle'],
+          gravity: 0.8
+        });
+      }, 360);
+    }
+
+    function executeOpenInvitation() {
+      triggerFlowerShower();
+
+      if (!frontAudio.paused) {
         let fadeAudio = setInterval(() => {
           if (frontAudio.volume > 0.1) {
-            frontAudio.volume -= 0.15;
+            frontAudio.volume -= 0.2;
           } else {
             clearInterval(fadeAudio);
             frontAudio.pause();
           }
         }, 50);
-      }, 450);
+      }
 
-      // 4. Reveal invitation card
+      const overlay = document.getElementById('welcomeOverlay');
+      const card = document.getElementById('inviteCard');
+      const memoriesCard = document.getElementById('memoriesCard');
+
       setTimeout(() => {
-        overlay.classList.add('unsealed');
+        overlay.classList.add('hidden');
+        card.classList.add('show');
+        if (memoriesCard) memoriesCard.classList.add('show');
+
         video.muted = false;
         video.play().catch(err => {
-          console.log("Autoplay fallback muted:", err);
+          console.log("Audio autoplay restricted, falling back to muted:", err);
           video.muted = true;
           video.play();
         });
-      }, 450);
-    }
-
-    function scrollToDetails() {
-      const target = document.getElementById('detailsSection');
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    // --- PHOTO SLIDER LOGIC ---
-    const track = document.getElementById('sliderTrack');
-    const slides = document.querySelectorAll('.slide-item');
-    const dotsContainer = document.getElementById('sliderDots');
-    let currentIndex = 0;
-    const totalSlides = slides.length;
-
-    // Create pagination dots
-    slides.forEach((_, idx) => {
-      const dot = document.createElement('div');
-      dot.className = `slider-dot ${idx === 0 ? 'active' : ''}`;
-      dot.onclick = (e) => {
-        e.stopPropagation();
-        goToSlide(idx);
-      };
-      dotsContainer.appendChild(dot);
-    });
-
-    function updateSlider() {
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      const dots = document.querySelectorAll('.slider-dot');
-      dots.forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === currentIndex);
-      });
-    }
-
-    function nextSlide(e) {
-      if (e) e.stopPropagation();
-      currentIndex = (currentIndex + 1) % totalSlides;
-      updateSlider();
-    }
-
-    function prevSlide(e) {
-      if (e) e.stopPropagation();
-      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-      updateSlider();
-    }
-
-    function goToSlide(idx) {
-      currentIndex = idx;
-      updateSlider();
-    }
-
-    // Touch Swipe Left / Right Detection
-    let startX = 0;
-    let endX = 0;
-    const sliderFrame = document.getElementById('sliderFrame');
-
-    sliderFrame.addEventListener('touchstart', (e) => {
-      startX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    sliderFrame.addEventListener('touchend', (e) => {
-      endX = e.changedTouches[0].screenX;
-      handleGesture();
-    }, { passive: true });
-
-    function handleGesture() {
-      const swipeDistance = endX - startX;
-      if (swipeDistance < -45) {
-        // Swiped Left -> Next Photo
-        nextSlide();
-      } else if (swipeDistance > 45) {
-        // Swiped Right -> Previous Photo
-        prevSlide();
-      }
+      }, 350);
     }
 
     // Countdown Logic to Nov 20, 2026
@@ -932,6 +993,67 @@
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    /* --- MEMORIES SLIDER INTERACTION --- */
+    const track = document.getElementById('sliderTrack');
+    const slides = document.querySelectorAll('.slide-item');
+    const dotsContainer = document.getElementById('sliderDots');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+    const sliderFrame = document.getElementById('sliderFrame');
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    // Generate indicator dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('slider-dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.slider-dot');
+
+    function updateSlidePosition() {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentIndex);
+      });
+    }
+
+    function goToSlide(index) {
+      currentIndex = (index + totalSlides) % totalSlides;
+      updateSlidePosition();
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+    // Touch / Swipe Event Handling (Slide Left / Slide Right)
+    let startX = 0;
+    let endX = 0;
+
+    sliderFrame.addEventListener('touchstart', (e) => {
+      startX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    sliderFrame.addEventListener('touchend', (e) => {
+      endX = e.changedTouches[0].screenX;
+      handleSwipeGesture();
+    }, { passive: true });
+
+    function handleSwipeGesture() {
+      const swipeThreshold = 40;
+      if (startX - endX > swipeThreshold) {
+        // Swiped Left -> Advance to next photo
+        goToSlide(currentIndex + 1);
+      } else if (endX - startX > swipeThreshold) {
+        // Swiped Right -> Return to previous photo
+        goToSlide(currentIndex - 1);
+      }
+    }
   </script>
 
 </body>
