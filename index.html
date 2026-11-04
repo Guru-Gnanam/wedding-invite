@@ -257,7 +257,7 @@
       background: linear-gradient(90deg, transparent, var(--sacred-gold), transparent);
     }
 
-    /* Couple Names from Reference */
+    /* Couple Names */
     .couple-section {
       margin-bottom: 24px;
     }
@@ -446,8 +446,8 @@
   <div id="welcomeOverlay">
     <div class="envelope-poster-card">
       
-      <!-- Interactive Two-Step Touch Seal -->
-      <div class="seal-tap-zone" onclick="handleMedallionTap(event)">
+      <!-- Direct 1-Tap Open Seal -->
+      <div class="seal-tap-zone" onclick="executeOpenInvitation(event)">
         <div class="crimson-wax-seal" id="sealBtn">
           <svg class="seal-heart-svg" id="sealIcon" viewBox="0 0 32 32">
             <defs>
@@ -464,7 +464,7 @@
               stroke-width="1"
             />
           </svg>
-          <div class="seal-text" id="sealLabel">WELCOME</div>
+          <div class="seal-text" id="sealLabel">OPEN</div>
         </div>
       </div>
 
@@ -488,7 +488,7 @@
       </video>
     </div>
 
-    <!-- Authentic Design Content matching your reference image -->
+    <!-- Authentic Design Content -->
     <div class="content">
       <div class="intro-script">Together with our families</div>
       <div class="flourish-divider">✤</div>
@@ -588,28 +588,30 @@
   <script>
     const frontAudio = document.getElementById('frontAudio');
     const video = document.getElementById('inviteVideo');
-    const sealLabel = document.getElementById('sealLabel');
-    const sealIcon = document.getElementById('sealIcon');
 
-    let tapCount = 0;
-
-    function handleMedallionTap(event) {
-      if (event) event.stopPropagation();
-      tapCount++;
-
-      if (tapCount === 1) {
+    function startMusic() {
+      if (frontAudio.paused) {
         frontAudio.volume = 0.85;
         frontAudio.play().catch(err => {
-          console.log("Audio play error:", err);
+          console.log("Autoplay blocked by browser policy:", err);
+          // Fallback: unlock and play on the very first user touch anywhere
+          const unlockAudio = () => {
+            frontAudio.play();
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('click', unlockAudio);
+          };
+          document.addEventListener('touchstart', unlockAudio, { once: true });
+          document.addEventListener('click', unlockAudio, { once: true });
         });
-
-        sealLabel.innerText = "OPEN";
-        sealLabel.style.color = "#f5d77f";
-        sealIcon.style.transform = "scale(1.2)";
-      } else {
-        executeOpenInvitation();
       }
     }
+
+    // Auto-play the front song after a 3-second delay
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        startMusic();
+      }, 3000);
+    });
 
     function triggerFlowerShower() {
       const petals = ['#d82643', '#ff758f', '#fff4f6', '#fca311', '#ffffff'];
@@ -653,7 +655,10 @@
       }, 360);
     }
 
-    function executeOpenInvitation() {
+    // Direct single tap opens the envelope immediately
+    function executeOpenInvitation(event) {
+      if (event) event.stopPropagation();
+
       triggerFlowerShower();
 
       if (!frontAudio.paused) {
@@ -676,7 +681,7 @@
 
         video.muted = false;
         video.play().catch(err => {
-          console.log("Audio autoplay restricted, falling back to muted:", err);
+          console.log("Video audio autoplay restricted, falling back to muted:", err);
           video.muted = true;
           video.play();
         });
