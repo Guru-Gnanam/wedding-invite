@@ -68,15 +68,16 @@
       position: fixed;
       inset: 0;
       width: 100vw;
+      height: 100vh;
       height: 100dvh;
       background: radial-gradient(circle at center, #260a0f 0%, #0d0204 100%);
       z-index: 99999;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 10px;
-      margin: 0;
-      transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.85s;
+      padding: 16px;
+      box-sizing: border-box;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
     }
 
     #welcomeOverlay.hidden {
@@ -87,44 +88,229 @@
 
     .envelope-poster-card {
       width: 100%;
-      max-width: 420px;
-      height: 94dvh;
-      max-height: 720px;
-      background: #fdfaf6 url('front-bg.png') no-repeat center center;
+      max-width: 400px;
+      height: 88vh;
+      height: 88dvh;
+      max-height: 680px;
+      background: #2a0b12 url('front-bg.png') no-repeat center center;
       background-size: cover;
-      border-radius: 18px;
-      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(198, 146, 59, 0.45);
+      border-radius: 20px;
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(198, 146, 59, 0.5);
       position: relative;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      cursor: pointer;
     }
 
     .seal-tap-zone {
-      position: absolute;
-      top: 54.5%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 5;
-      cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
+      cursor: pointer;
+      z-index: 10;
     }
 
     .crimson-wax-seal {
-      width: 90px;
-      height: 90px;
-      background: radial-gradient(circle at 35% 35%, #9b1c2e 0%, #761421 65%, #460912 100%);
+      width: 95px;
+      height: 95px;
+      background: radial-gradient(circle at 35% 35%, #a82034 0%, #761421 65%, #460912 100%);
       border-radius: 50%;
       border: 3px solid #d4af37;
       box-shadow: 
-        0 10px 28px rgba(0, 0, 0, 0.5),
-        inset 0 2px 6px rgba(255, 255, 255, 0.45),
-        0 0 0 4px rgba(212, 175, 55, 0.3);
+        0 10px 28px rgba(0, 0, 0, 0.6),
+        inset 0 2px 6px rgba(255, 255, 255, 0.5),
+        0 0 0 4px rgba(212, 175, 55, 0.35);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1
+      transition: all 0.3s ease;
+      animation: sealPulse 2.2s infinite;
+    }
+
+    .crimson-wax-seal:hover {
+      transform: scale(1.08);
+    }
+
+    .seal-heart-svg {
+      width: 26px;
+      height: 26px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+      margin-bottom: 3px;
+      transition: transform 0.25s ease;
+    }
+
+    .seal-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: #faebd7;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .tap-hint-text {
+      color: #e5c07b;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 14px;
+      background: rgba(0, 0, 0, 0.55);
+      padding: 4px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(229, 192, 123, 0.4);
+    }
+
+    @keyframes sealPulse {
+      0%, 100% { box-shadow: 0 10px 28px rgba(0,0,0,0.6), 0 0 0 4px rgba(212, 175, 55, 0.35); }
+      50% { box-shadow: 0 12px 32px rgba(168, 32, 52, 0.8), 0 0 0 10px rgba(212, 175, 55, 0); }
+    }
+
+    /* --- CARDS LAYOUT --- */
+    .invite-card, .memories-card {
+      max-width: 440px;
+      width: 100%;
+      background: #faf6ef;
+      border: 1px solid #e7d8c6;
+      border-radius: 24px;
+      box-shadow: 0 22px 55px rgba(99, 15, 28, 0.16);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .invite-card.show, .memories-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .video-frame {
+      width: 100%;
+      background: #000;
+      line-height: 0;
+      position: relative;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Content styling */
+    .content {
+      width: 100%;
+      padding: 32px 20px 28px;
+      text-align: center;
+      background: 
+        radial-gradient(circle at top right, rgba(179, 131, 59, 0.08), transparent 50%),
+        radial-gradient(circle at bottom left, rgba(110, 19, 34, 0.06), transparent 50%),
+        #faf6ef;
+      position: relative;
+    }
+
+    .content::before {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(179, 131, 59, 0.18);
+      pointer-events: none;
+    }
+
+    .content::after {
+      content: "";
+      position: absolute;
+      bottom: -30px;
+      left: -30px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(179, 131, 59, 0.18);
+      pointer-events: none;
+    }
+
+    .intro-script {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #634b35;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .flourish-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--sacred-gold);
+      font-size: 0.85rem;
+      margin: 6px auto 14px;
+      width: 60%;
+    }
+
+    .flourish-divider::before,
+    .flourish-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--sacred-gold), transparent);
+    }
+
+    .couple-section {
+      margin-bottom: 24px;
+    }
+
+    .couple-name {
+      font-family: 'Alex Brush', cursive;
+      font-size: 3.4rem;
+      color: var(--primary-wine);
+      line-height: 1.05;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .knot-caption {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #6b533b;
+      margin: 4px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .knot-caption span {
+      color: var(--sacred-gold);
+      font-size: 0.85rem;
+    }
+
+    .countdown-arch-banner {
+      width: 100%;
+      background: radial-gradient(circle at center, #781324 0%, #580d19 100%);
+      border: 1.5px solid var(--sacred-gold);
+      border-radius: 40px;
+      padding: 14px 12px 12px;
+      box-shadow: 0 8px 24px rgba(99, 15, 28, 0.28), inset 0 1px 3px rgba(255, 255, 255, 0.25);
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .countdown-title {
+      font-family: 'Cinzel', serif;
+      font-size:
