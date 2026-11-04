@@ -94,4 +94,644 @@
 
     .seal-tap-zone {
       position: absolute;
-      top
+      top: 54.5%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .crimson-wax-seal {
+      width: 96px;
+      height: 96px;
+      background: radial-gradient(circle at 35% 35%, #9b1c2e 0%, #761421 65%, #460912 100%);
+      border-radius: 50%;
+      border: 3px solid #d4af37;
+      box-shadow: 
+        0 10px 28px rgba(0, 0, 0, 0.5),
+        inset 0 2px 6px rgba(255, 255, 255, 0.45),
+        0 0 0 4px rgba(212, 175, 55, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: sealPulse 2.2s infinite;
+      position: relative;
+    }
+
+    .crimson-wax-seal:hover {
+      transform: scale(1.08);
+    }
+
+    .crimson-wax-seal.opening-active {
+      transform: scale(0.92);
+      animation: none;
+    }
+
+    .seal-heart-svg {
+      width: 26px;
+      height: 26px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+      margin-bottom: 2px;
+    }
+
+    .seal-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 2.2px;
+      color: #faebd7;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .tap-hint-pill {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 2, 5, 0.75);
+      border: 1px solid rgba(216, 178, 110, 0.6);
+      padding: 5px 14px;
+      border-radius: 20px;
+      color: #f7e7ce;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      animation: hintBounce 2s infinite ease-in-out;
+    }
+
+    @keyframes sealPulse {
+      0%, 100% { box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 4px rgba(212, 175, 55, 0.3); }
+      50% { box-shadow: 0 10px 32px rgba(155, 28, 46, 0.75), 0 0 0 12px rgba(212, 175, 55, 0); }
+    }
+
+    @keyframes hintBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    /* --- EXACT REPLICA INVITATION CARD --- */
+    .invite-card {
+      max-width: 440px;
+      width: 100%;
+      background: #faf6ef;
+      border: 1px solid #e7d8c6;
+      border-radius: 24px;
+      box-shadow: 0 22px 55px rgba(99, 15, 28, 0.16);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      opacity: 0;
+      transform: translateY(40px) scale(0.92);
+      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      margin: auto 0;
+    }
+
+    .invite-card.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .video-frame {
+      width: 100%;
+      background: #000;
+      line-height: 0;
+      position: relative;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Traditional Indian Wedding Content Container */
+    .content {
+      width: 100%;
+      padding: 34px 20px 28px;
+      text-align: center;
+      background: 
+        radial-gradient(circle at top right, rgba(179, 131, 59, 0.08), transparent 50%),
+        radial-gradient(circle at bottom left, rgba(110, 19, 34, 0.06), transparent 50%),
+        #faf6ef;
+      position: relative;
+    }
+
+    /* Watermark Mandalas in Opposite Corners */
+    .content::before {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(179, 131, 59, 0.18);
+      box-shadow: 0 0 0 10px rgba(179, 131, 59, 0.05), inset 0 0 0 15px rgba(179, 131, 59, 0.05);
+      pointer-events: none;
+    }
+
+    .content::after {
+      content: "";
+      position: absolute;
+      bottom: -30px;
+      left: -30px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(179, 131, 59, 0.18);
+      box-shadow: 0 0 0 10px rgba(179, 131, 59, 0.05), inset 0 0 0 15px rgba(179, 131, 59, 0.05);
+      pointer-events: none;
+    }
+
+    .intro-script {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #634b35;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Ornate Gold Dividers */
+    .flourish-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--sacred-gold);
+      font-size: 0.85rem;
+      margin: 6px auto 14px;
+      width: 60%;
+    }
+
+    .flourish-divider::before,
+    .flourish-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--sacred-gold), transparent);
+    }
+
+    /* Couple Names */
+    .couple-section {
+      margin-bottom: 24px;
+    }
+
+    .couple-name {
+      font-family: 'Alex Brush', cursive;
+      font-size: 3.4rem;
+      color: var(--primary-wine);
+      line-height: 1.05;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .knot-caption {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #6b533b;
+      margin: 4px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .knot-caption span {
+      color: var(--sacred-gold);
+      font-size: 0.85rem;
+    }
+
+    /* Royal Maroon Countdown Arch Banner */
+    .countdown-arch-banner {
+      width: 100%;
+      background: radial-gradient(circle at center, #781324 0%, #580d19 100%);
+      border: 1.5px solid var(--sacred-gold);
+      border-radius: 40px;
+      padding: 14px 12px 12px;
+      box-shadow: 0 8px 24px rgba(99, 15, 28, 0.28), inset 0 1px 3px rgba(255, 255, 255, 0.25);
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .countdown-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 3.5px;
+      color: var(--soft-gold);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .countdown-columns {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 14px;
+    }
+
+    .count-unit-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .count-val {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .count-lbl {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 2px;
+      color: #dfcaa7;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .count-divider-line {
+      width: 1px;
+      height: 32px;
+      background: rgba(216, 178, 110, 0.35);
+    }
+
+    .arch-corner-star {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--soft-gold);
+      font-size: 0.95rem;
+    }
+    .star-left { left: 14px; }
+    .star-right { right: 14px; }
+
+    /* Ceremony Sections */
+    .ceremony-block {
+      margin-bottom: 26px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gold-emblem-svg {
+      width: 76px;
+      height: 38px;
+      margin-bottom: 4px;
+      filter: drop-shadow(0 2px 4px rgba(179, 131, 59, 0.25));
+    }
+
+    .ceremony-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary-wine);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .ceremony-date {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 3px;
+    }
+
+    .ceremony-venue {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      color: #55433a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+
+    /* Maroon & Gold Pill Button */
+    .btn-maroon-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      background: radial-gradient(circle at 30% 30%, #891a2b 0%, #600c19 100%);
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 9px 26px;
+      border-radius: 30px;
+      border: 1.5px solid var(--soft-gold);
+      box-shadow: 0 4px 14px rgba(99, 15, 28, 0.35);
+      transition: all 0.25s ease;
+    }
+
+    .btn-maroon-pill:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(99, 15, 28, 0.45);
+      filter: brightness(1.08);
+    }
+
+    .footer-blessing-text {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #6d523a;
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Audio track for envelope screen -->
+  <audio id="frontAudio" loop preload="auto">
+    <source src="bg-music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Full-Screen Wedding Poster Overlay -->
+  <div id="welcomeOverlay">
+    <div class="envelope-poster-card">
+      
+      <!-- One-Tap Cinematic Opening Zone -->
+      <div class="seal-tap-zone" onclick="handleOneTapOpen(event)">
+        <div class="crimson-wax-seal" id="sealBtn">
+          <svg class="seal-heart-svg" viewBox="0 0 32 32">
+            <defs>
+              <linearGradient id="heartGold" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#fff6db"/>
+                <stop offset="0.45" stop-color="#f5d77f"/>
+                <stop offset="1" stop-color="#c6923b"/>
+              </linearGradient>
+            </defs>
+            <path 
+              d="M16 28.5 C15.4 28.5 4 19.8 4 11.2 C4 6.7 7.5 3.5 11.8 3.5 C14.3 3.5 15.4 4.8 16 5.6 C16.6 4.8 17.7 3.5 20.2 3.5 C24.5 3.5 28 6.7 28 11.2 C28 19.8 16.6 28.5 16 28.5 Z" 
+              fill="url(#heartGold)" 
+              stroke="#b57e29" 
+              stroke-width="1"
+            />
+          </svg>
+          <div class="seal-text">OPEN</div>
+        </div>
+        <div class="tap-hint-pill">✨ Tap to Unseal ✨</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Main Invitation Pop-Out Card -->
+  <main class="invite-card" id="inviteCard">
+    <div class="video-frame">
+      <video 
+        id="inviteVideo" 
+        playsinline 
+        webkit-playsinline 
+        loop 
+        preload="auto"
+        disablePictureInPicture
+        disableremoteplayback
+      >
+        <source src="invite.mp4" type="video/mp4" />
+        Your browser does not support the video element.
+      </video>
+    </div>
+
+    <!-- Authentic Design Content -->
+    <div class="content">
+      <div class="intro-script">Together with our families</div>
+      <div class="flourish-divider">✤</div>
+
+      <!-- Couple Names in Script -->
+      <div class="couple-section">
+        <h1 class="couple-name">Guru</h1>
+        <div class="knot-caption"><span>❧</span> is tying the knot with <span>☙</span></div>
+        <h1 class="couple-name">Epsiba</h1>
+      </div>
+
+      <div class="flourish-divider">✤</div>
+
+      <!-- Royal Maroon Arched Countdown Banner -->
+      <section class="countdown-arch-banner">
+        <span class="arch-corner-star star-left">✤</span>
+        <span class="arch-corner-star star-right">✤</span>
+        <div class="countdown-title">Counting Down To The Big Day</div>
+        
+        <div class="countdown-columns">
+          <div class="count-unit-box">
+            <span class="count-val" id="days">00</span>
+            <span class="count-lbl">Days</span>
+          </div>
+          <div class="count-divider-line"></div>
+          <div class="count-unit-box">
+            <span class="count-val" id="hours">00</span>
+            <span class="count-lbl">Hours</span>
+          </div>
+          <div class="count-divider-line"></div>
+          <div class="count-unit-box">
+            <span class="count-val" id="minutes">00</span>
+            <span class="count-lbl">Mins</span>
+          </div>
+          <div class="count-divider-line"></div>
+          <div class="count-unit-box">
+            <span class="count-val" id="seconds">00</span>
+            <span class="count-lbl">Secs</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Wedding Celebration Block -->
+      <section class="ceremony-block">
+        <!-- Temple Mandapam Gold Icon -->
+        <svg class="gold-emblem-svg" viewBox="0 0 100 48" fill="none">
+          <path d="M50 4 L53 10 L47 10 Z" fill="#b3833b"/>
+          <path d="M43 11 L57 11 L55 18 L45 18 Z" fill="#b3833b"/>
+          <path d="M39 19 L61 19 L58 26 L42 26 Z" fill="#b3833b"/>
+          <rect x="42" y="27" width="4" height="15" fill="#b3833b"/>
+          <rect x="54" y="27" width="4" height="15" fill="#b3833b"/>
+          <rect x="47" y="32" width="6" height="10" stroke="#b3833b" stroke-width="1.5"/>
+          <rect x="37" y="42" width="26" height="3" fill="#b3833b"/>
+          <path d="M35 34 C25 32, 18 25, 14 18 C20 22, 28 25, 34 26" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M65 34 C75 32, 82 25, 86 18 C80 22, 72 25, 66 26" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+
+        <h2 class="ceremony-title">Wedding Celebration</h2>
+        <div class="flourish-divider">✤</div>
+        <div class="ceremony-date">Friday, 20th November 2026</div>
+        <div class="ceremony-venue">📍 MJR Mahal, Marakkanam</div>
+        <a href="https://maps.google.com/?q=MJR+Mahal+Marakkanam" target="_blank" rel="noopener noreferrer" class="btn-maroon-pill">
+          📍 View Location &rarr;
+        </a>
+      </section>
+
+      <!-- Reception Celebration Block -->
+      <section class="ceremony-block">
+        <!-- Intertwined Wedding Rings Gold Icon -->
+        <svg class="gold-emblem-svg" viewBox="0 0 100 48" fill="none">
+          <circle cx="43" cy="27" r="13" stroke="#b3833b" stroke-width="2.5"/>
+          <circle cx="57" cy="25" r="12" stroke="#b3833b" stroke-width="2.5"/>
+          <polygon points="57,6 52,12 62,12" fill="#ffffff" stroke="#b3833b" stroke-width="1"/>
+          <path d="M30 32 C22 30, 16 24, 12 18 C18 21, 25 23, 30 24" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M70 32 C78 30, 84 24, 88 18 C82 21, 75 23, 70 24" stroke="#b3833b" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+
+        <h2 class="ceremony-title">Reception Celebration</h2>
+        <div class="flourish-divider">✤</div>
+        <div class="ceremony-date">Wednesday, 25th November 2026</div>
+        <div class="ceremony-venue">📍 Om Thirumana Mandapam, Dharmapuri</div>
+        <a href="https://maps.google.com/?q=Om+Thirumana+Mandapam" target="_blank" rel="noopener noreferrer" class="btn-maroon-pill">
+          📍 View Location &rarr;
+        </a>
+      </section>
+
+      <div class="flourish-divider">✤</div>
+      <p class="footer-blessing-text">We warmly seek your presence and blessings</p>
+      <div class="flourish-divider" style="margin-bottom: 0;">✤</div>
+    </div>
+  </main>
+
+  <script>
+    const frontAudio = document.getElementById('frontAudio');
+    const video = document.getElementById('inviteVideo');
+    const overlay = document.getElementById('welcomeOverlay');
+    const card = document.getElementById('inviteCard');
+    const sealBtn = document.getElementById('sealBtn');
+
+    let hasOpened = false;
+
+    function handleOneTapOpen(event) {
+      if (event) event.stopPropagation();
+      if (hasOpened) return;
+      hasOpened = true;
+
+      // 1. Visual feedback on seal tap
+      sealBtn.classList.add('opening-active');
+
+      // 2. Play Audio immediately from user interaction (Bypasses mobile autoplay restrictions 100%)
+      frontAudio.volume = 0.9;
+      frontAudio.play().catch(err => {
+        console.log("Audio play error:", err);
+      });
+
+      // 3. Trigger cinematic confetti petals
+      triggerFlowerShower();
+
+      // 4. Fade front audio gently so video sound takes over without sharp cut
+      setTimeout(() => {
+        let fadeAudio = setInterval(() => {
+          if (frontAudio.volume > 0.1) {
+            frontAudio.volume -= 0.15;
+          } else {
+            clearInterval(fadeAudio);
+            frontAudio.pause();
+          }
+        }, 50);
+      }, 400);
+
+      // 5. Reveal main invitation card & start video
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        card.classList.add('show');
+
+        video.muted = false;
+        video.play().catch(err => {
+          console.log("Video autoplay restricted, falling back to muted:", err);
+          video.muted = true;
+          video.play();
+        });
+      }, 450);
+    }
+
+    function triggerFlowerShower() {
+      const petals = ['#d82643', '#ff758f', '#fff4f6', '#fca311', '#ffffff'];
+
+      confetti({
+        particleCount: 75,
+        spread: 110,
+        origin: { y: 0.55 },
+        colors: petals,
+        scalar: 1.25,
+        shapes: ['circle'],
+        ticks: 200,
+        gravity: 0.7,
+        drift: 0.1
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 45,
+          angle: 60,
+          spread: 75,
+          origin: { x: 0, y: 0.65 },
+          colors: petals,
+          scalar: 1.3,
+          shapes: ['circle'],
+          gravity: 0.8
+        });
+      }, 180);
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 45,
+          angle: 120,
+          spread: 75,
+          origin: { x: 1, y: 0.65 },
+          colors: petals,
+          scalar: 1.3,
+          shapes: ['circle'],
+          gravity: 0.8
+        });
+      }, 360);
+    }
+
+    // Countdown Logic to Nov 20, 2026
+    const weddingDate = new Date("November 20, 2026 09:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(days).padStart(2, '0');
+        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+      } else {
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+
+</body>
+</html>
