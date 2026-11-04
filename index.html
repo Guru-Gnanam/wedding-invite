@@ -18,6 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Lightweight Confetti for Flower Shower -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <style>
     :root {
       --primary-wine: #6e1322;
@@ -37,102 +39,130 @@
     html, body {
       width: 100%;
       min-height: 100%;
+      background-color: #110507;
       font-family: 'Cormorant Garamond', Georgia, serif;
       color: var(--text-dark);
-      background-color: #110507;
+      overflow-x: hidden;
     }
 
     body {
       background: radial-gradient(circle at top, #fdf9f4 0%, #ece0d2 100%);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding: 24px 12px;
+      align-items: center;
+      padding: 16px 10px;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
-    /* --- FLOATING MUSIC DISC (TOP RIGHT) --- */
-    .music-disc-btn {
+    /* --- FULL SCREEN CINEMATIC OVERLAY --- */
+    #welcomeOverlay {
       position: fixed;
-      top: 18px;
-      right: 18px;
-      z-index: 9999;
-      display: inline-flex;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #260a0f 0%, #0d0204 100%);
+      z-index: 99999;
+      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 8px;
-      background: rgba(42, 10, 16, 0.88);
-      border: 1.5px solid var(--sacred-gold);
-      border-radius: 30px;
-      padding: 6px 14px 6px 8px;
-      color: #fff4db;
-      font-family: 'Cinzel', serif;
-      font-size: 0.68rem;
-      letter-spacing: 1.5px;
+      padding: 14px 10px;
+      transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+    }
+
+    #welcomeOverlay.unsealed {
+      opacity: 0;
+      transform: scale(1.06);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-poster-card {
+      width: 100%;
+      max-width: 420px;
+      height: min(740px, 92vh);
+      min-height: 520px;
+      background: #fdfaf6 url('front-bg.png') no-repeat center center;
+      background-size: cover;
+      border-radius: 20px;
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(198, 146, 59, 0.45);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      transition: transform 0.8s ease, filter 0.8s ease;
+    }
+
+    .envelope-poster-card.opening {
+      transform: scale(0.96);
+      filter: brightness(1.08);
+    }
+
+    /* Tap Zone perfectly targeted over the illustrated wax seal */
+    .seal-tap-zone {
+      position: absolute;
+      top: 51.2%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      z-index: 5;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      outline: none;
       -webkit-tap-highlight-color: transparent;
     }
 
-    .music-disc-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
-    }
-
-    .vinyl-icon {
-      width: 24px;
-      height: 24px;
+    /* Sacred Gold Aura Halo pulsing over the graphic seal */
+    .seal-aura-halo {
+      width: 106px;
+      height: 106px;
       border-radius: 50%;
-      background: radial-gradient(circle at center, #d4af37 0%, #3a2205 35%, #111111 40%, #111111 75%, #d4af37 100%);
-      box-shadow: 0 0 6px rgba(212, 175, 55, 0.6);
+      border: 2px solid rgba(212, 175, 55, 0.85);
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.7), inset 0 0 16px rgba(212, 175, 55, 0.35);
+      animation: sealHaloPulse 2.2s infinite ease-in-out;
       display: flex;
-      align-items: center;
       justify-content: center;
-      position: relative;
-    }
-
-    .vinyl-center-dot {
-      width: 6px;
-      height: 6px;
-      background: #faf6ef;
-      border-radius: 50%;
-    }
-
-    .music-disc-btn.playing .vinyl-icon {
-      animation: spinVinyl 3.5s linear infinite;
-    }
-
-    @keyframes spinVinyl {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* Animated equalizer bars */
-    .sound-bars {
-      display: flex;
       align-items: flex-end;
-      gap: 2px;
-      height: 12px;
+      padding-bottom: 12px;
+      background: rgba(110, 19, 34, 0.12);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
     }
 
-    .sound-bar {
-      width: 2px;
-      background: var(--soft-gold);
-      border-radius: 1px;
-      height: 3px;
-      transition: height 0.2s ease;
+    .seal-tap-zone:hover .seal-aura-halo {
+      transform: scale(1.08);
+      box-shadow: 0 0 32px rgba(212, 175, 55, 0.95), inset 0 0 20px rgba(212, 175, 55, 0.5);
     }
 
-    .music-disc-btn.playing .sound-bar:nth-child(1) { animation: soundBarWave 1.1s ease-in-out infinite; }
-    .music-disc-btn.playing .sound-bar:nth-child(2) { animation: soundBarWave 0.8s ease-in-out 0.2s infinite; }
-    .music-disc-btn.playing .sound-bar:nth-child(3) { animation: soundBarWave 1.3s ease-in-out 0.4s infinite; }
+    .seal-tap-zone:active .seal-aura-halo {
+      transform: scale(0.92);
+    }
 
-    @keyframes soundBarWave {
-      0%, 100% { height: 3px; }
-      50% { height: 12px; }
+    .seal-open-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 2.5px;
+      color: #fff6db;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+      user-select: none;
+    }
+
+    @keyframes sealHaloPulse {
+      0%, 100% {
+        transform: scale(0.97);
+        box-shadow: 0 0 14px rgba(212, 175, 55, 0.45);
+        border-color: rgba(212, 175, 55, 0.65);
+      }
+      50% {
+        transform: scale(1.06);
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.95), inset 0 0 18px rgba(212, 175, 55, 0.45);
+        border-color: rgba(255, 235, 170, 1);
+      }
     }
 
     /* --- INVITATION MAIN CARD --- */
@@ -148,7 +178,15 @@
       flex-direction: column;
       align-items: center;
       position: relative;
+      opacity: 0;
+      transform: translateY(35px) scale(0.94);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
       margin: 0 auto;
+    }
+
+    .invite-card.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     .video-frame {
@@ -178,6 +216,7 @@
       position: relative;
     }
 
+    /* Mandala Watermarks */
     .content::before {
       content: "";
       position: absolute;
@@ -187,64 +226,4 @@
       height: 140px;
       border-radius: 50%;
       border: 1.5px dashed rgba(179, 131, 59, 0.18);
-      box-shadow: 0 0 0 10px rgba(179, 131, 59, 0.05), inset 0 0 0 15px rgba(179, 131, 59, 0.05);
-      pointer-events: none;
-    }
-
-    .content::after {
-      content: "";
-      position: absolute;
-      bottom: -30px;
-      left: -30px;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      border: 1.5px dashed rgba(179, 131, 59, 0.18);
-      box-shadow: 0 0 0 10px rgba(179, 131, 59, 0.05), inset 0 0 0 15px rgba(179, 131, 59, 0.05);
-      pointer-events: none;
-    }
-
-    .intro-script {
-      font-size: 1.25rem;
-      font-style: italic;
-      color: #634b35;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-    }
-
-    .flourish-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      color: var(--sacred-gold);
-      font-size: 0.85rem;
-      margin: 6px auto 14px;
-      width: 60%;
-    }
-
-    .flourish-divider::before,
-    .flourish-divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--sacred-gold), transparent);
-    }
-
-    .couple-section {
-      margin-bottom: 24px;
-    }
-
-    .couple-name {
-      font-family: 'Alex Brush', cursive;
-      font-size: 3.4rem;
-      color: var(--primary-wine);
-      line-height: 1.05;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
-
-    .knot-caption {
-      font-size: 1.15rem;
-      font-style: italic;
-      color:
+      box-shadow: 0 0 0 10px rgba(179, 131, 59, 0.05), inset 0 0 0 15
